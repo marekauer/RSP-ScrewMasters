@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registrace{% endblock %}
+
+{% block body %}
+<div class="wrapper">
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+
+    <span class="h3 mb-3 font-weight-normal">Registrovat</span>
+
+    {{ form_start(registrationForm, { 'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'} }) }}
+
+    <div class="mb-3 text-danger">
+        {{ form_errors(registrationForm) }}
+    </div>
+    
+    <div class="mb-3">
+        {{ form_row(registrationForm.email, {
+            'label': 'Email',
+            'attr': {'class': 'form-control'},
+            'label_attr': {'class': 'form-label'}
+        }) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_row(registrationForm.plainPassword, {
+            'label': 'Heslo',
+            'attr': {'class': 'form-control'},
+            'label_attr': {'class': 'form-label'}
+        }) }}
+    </div>
+
+    <div class="mb-3">
+        {% for role in registrationForm.roles %}
+            {{ form_row(role, {
+                'label': 'Uživatelská role',
+                'attr': {'class': 'form-control'},
+                'label_attr': {'class': 'form-label'}
+            }) }}
+        {% endfor %}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Registrovat</button>
+    {{ form_end(registrationForm) }}
+
+</div>
+{% endblock %}

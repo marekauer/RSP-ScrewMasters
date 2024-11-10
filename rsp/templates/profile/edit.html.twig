@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="wrapper">
+    <h1>Upravit profil</h1>
+    {{ form_start(form) }}
+        {{ form_row(form.email, {
+            'label': 'Email',
+            'attr': {'class': 'form-control'},
+            'label_attr': {'class': 'form-label'}
+        }) }}
+        {{ form_row(form.password, { 
+            'label': 'Zadejte nové heslo (nebo nechte volné pokud si ho nepřejete změnit)',
+            'attr': {'class': 'form-control'},
+            'label_attr': {'class': 'form-label mt-2'}
+        }) }}
+        <button class="btn btn-primary mt-2">Uložit</button>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

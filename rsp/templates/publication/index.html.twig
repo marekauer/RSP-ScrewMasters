@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container mt-5">
+    <h2 class="ml-3">Seznam článků</h2>
+    <div class="container mt-5">
+        <div class="list-group mt-4 shadow-sm">
+            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <h5 class="fw-bold text-primary">Test title</h5>
+                    <p class="text-muted">Test ukázka</p>
+                    <small class="text-secondary">Publikováno: 1. 1. 2024</small>
+                </div>
+                <a href="{{ path('app_publication_detail') }}" class="btn btn-outline-primary btn-sm">
+                    <i class="bi bi-book"></i> Přečíst
+                </a>
+            </a>
+        </div>
+    </div>
+
+    <nav aria-label="Pagination" class="mt-4">
+        <ul class="pagination justify-content-center">
+            {# {% if articles.hasPreviousPage %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ path('article_list', { page: articles.previousPage }) }}">Předchozí</a>
+                </li>
+            {% endif %}
+
+            {% for page in 1..articles.pageCount %}
+                <li class="page-item {{ page == articles.currentPage ? 'active' : '' }}">
+                    <a class="page-link" href="{{ path('article_list', { page: page }) }}">{{ page }}</a>
+                </li>
+            {% endfor %}
+
+            {% if articles.hasNextPage %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ path('article_list', { page: articles.nextPage }) }}">Další</a>
+                </li>
+            {% endif %} #}
+        </ul>
+    </nav>
+</div>
+{% endblock %}

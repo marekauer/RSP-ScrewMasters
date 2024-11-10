@@ -1,0 +1,37 @@
+security:
+    role_hierarchy:
+        ROLE_USER: ROLE_USER
+        ROLE_LUNCHVENDOR: ROLE_LUNCHVENDOR
+        ROLE_ADMIN: ROLE_ADMIN
+    password_hashers:
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+    providers:
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            lazy: true
+            provider: app_user_provider
+            form_login:
+                login_path: app_login
+                check_path: app_login
+                default_target_path: /dashboard
+                enable_csrf: true
+            logout:
+                path: app_logout
+    access_control:
+        - { path: ^/dashboard, roles: [ROLE_USER] }
+
+when@test:
+    security:
+        password_hashers:
+            Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
+                algorithm: auto
+                cost: 4 
+                time_cost: 3
+                memory_cost: 10
