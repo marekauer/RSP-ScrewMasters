@@ -35,7 +35,6 @@ class __TwigTemplate_95770bccb00a474daf73fa737f0e0bb0 extends Template
             'title' => [$this, 'block_title'],
             'stylesheets' => [$this, 'block_stylesheets'],
             'javascripts' => [$this, 'block_javascripts'],
-            'importmap' => [$this, 'block_importmap'],
             'body' => [$this, 'block_body'],
         ];
     }
@@ -75,60 +74,103 @@ class __TwigTemplate_95770bccb00a474daf73fa737f0e0bb0 extends Template
         // line 15
         yield "    </head>
     <body>
-        <nav class=\"navbar navbar-expand-lg navbar-light bg-light\">
+        <nav class=\"navbar navbar-expand-lg navbar-light bg-gradient shadow-sm\">
             <div class=\"container-fluid\">
-                <a class=\"navbar-brand\" href=\"";
+                <a class=\"navbar-brand text-white fw-bold\" href=\"";
         // line 19
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_home");
-        yield "\">TechMind</a>
-                
-                <div class=\"collapse navbar-collapse\">
-                    <ul class=\"navbar-nav ml-auto\">
+        yield "\">Techmind</a>
+        
+                <button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">
+                    <span class=\"navbar-toggler-icon\"></span>
+                </button>
+        
+                <div class=\"collapse navbar-collapse\" id=\"navbarNav\" style=\"position: absolute; right: 30px;\">
+                    <ul class=\"navbar-nav ms-auto\">
                         ";
-        // line 23
-        if (CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 23, $this->source); })()), "user", [], "any", false, false, false, 23)) {
-            // line 24
+        // line 27
+        if (CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 27, $this->source); })()), "user", [], "any", false, false, false, 27)) {
+            // line 28
             yield "                            <li class=\"nav-item\">
-                                <a class=\"nav-link\" href=\"";
-            // line 25
+                                <a class=\"nav-link text-white base-link\" href=\"";
+            // line 29
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_dashboard");
             yield "\">Dashboard</a>
                             </li>
                             <li class=\"nav-item\">
-                                <a class=\"nav-link\" href=\"";
-            // line 28
+                                <a class=\"nav-link text-white base-link\" href=\"";
+            // line 32
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_logout");
             yield "\">Odhlásit se</a>
                             </li>
                         ";
         } else {
-            // line 31
+            // line 35
             yield "                            <li class=\"nav-item\">
-                                <a class=\"nav-link\" href=\"";
-            // line 32
+                                <a class=\"nav-link text-white base-link\" href=\"";
+            // line 36
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
             yield "\">Přihlásit se</a>
                             </li>
                             <li class=\"nav-item\">
-                                <a class=\"nav-link\" href=\"";
-            // line 35
+                                <a class=\"nav-link text-white base-link\" href=\"";
+            // line 39
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_register");
             yield "\">Registrovat</a>
                             </li>
                         ";
         }
-        // line 38
+        // line 42
         yield "                    </ul>
                 </div>
+
             </div>
         </nav>
+        
+        <style>
+            .bg-gradient {
+                background: linear-gradient(135deg, #D5A9F7 0%, #2575fc 100%);
+            }
+        
+            .navbar-brand {
+                font-size: 1.5rem;
+                letter-spacing: 1px;
+            }
+        
+            .base-link {
+                font-size: 1rem;
+                font-weight: 500;
+                padding: 8px 15px;
+            }
+        
+            .base-link:hover {
+                color: #fff !important;
+                background-color: transparent;
+                border-radius: 5px;
+            }
+        
+            .navbar {
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+        
+            .base-link {
+                color: #fff !important;
+            }
+    
+            .base-link:hover {
+                color: #fff !important;
+                background-color: transparent;
+            }
+        </style>
+        
+        
         ";
-        // line 42
+        // line 85
         yield from $this->unwrap()->yieldBlock('body', $context, $blocks);
-        // line 43
-        yield "         <script src=\"https://code.jquery.com/jquery-3.5.1.slim.min.js\"></script>
+        // line 86
+        yield "        <script src=\"https://code.jquery.com/jquery-3.5.1.slim.min.js\"></script>
         <script src=\"https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js\"></script>
-        <script src=\"https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js\"></script>
+        <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js\"></script>
     </body>
 </html>
 ";
@@ -154,7 +196,7 @@ class __TwigTemplate_95770bccb00a474daf73fa737f0e0bb0 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
 
-        yield "TechMind";
+        yield "Techmind";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
@@ -203,7 +245,6 @@ class __TwigTemplate_95770bccb00a474daf73fa737f0e0bb0 extends Template
 
         // line 13
         yield "            ";
-        yield from $this->unwrap()->yieldBlock('importmap', $context, $blocks);
         // line 14
         yield "        ";
         
@@ -215,30 +256,7 @@ class __TwigTemplate_95770bccb00a474daf73fa737f0e0bb0 extends Template
         yield from [];
     }
 
-    // line 13
-    /**
-     * @return iterable<null|scalar|\Stringable>
-     */
-    public function block_importmap(array $context, array $blocks = []): iterable
-    {
-        $macros = $this->macros;
-        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
-        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "importmap"));
-
-        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
-        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "importmap"));
-
-        yield $this->env->getRuntime('Symfony\Bridge\Twig\Extension\ImportMapRuntime')->importmap("app");
-        
-        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
-
-        
-        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
-
-        yield from [];
-    }
-
-    // line 42
+    // line 85
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -281,7 +299,7 @@ class __TwigTemplate_95770bccb00a474daf73fa737f0e0bb0 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  242 => 42,  219 => 13,  208 => 14,  205 => 13,  192 => 12,  181 => 8,  168 => 7,  145 => 5,  129 => 43,  127 => 42,  121 => 38,  115 => 35,  109 => 32,  106 => 31,  100 => 28,  94 => 25,  91 => 24,  89 => 23,  82 => 19,  76 => 15,  74 => 12,  70 => 11,  66 => 9,  64 => 7,  59 => 5,  53 => 1,);
+        return array (  260 => 85,  249 => 14,  247 => 13,  234 => 12,  223 => 8,  210 => 7,  187 => 5,  171 => 86,  169 => 85,  124 => 42,  118 => 39,  112 => 36,  109 => 35,  103 => 32,  97 => 29,  94 => 28,  92 => 27,  81 => 19,  75 => 15,  73 => 12,  69 => 11,  65 => 9,  63 => 7,  58 => 5,  52 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -290,7 +308,7 @@ class __TwigTemplate_95770bccb00a474daf73fa737f0e0bb0 extends Template
 <html>
     <head>
         <meta charset=\"UTF-8\">
-        <title>{% block title %}TechMind{% endblock %}</title>
+        <title>{% block title %}Techmind{% endblock %}</title>
         <link rel=\"icon\" href=\"data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>\">
         {% block stylesheets %}
         {% endblock %}
@@ -298,39 +316,82 @@ class __TwigTemplate_95770bccb00a474daf73fa737f0e0bb0 extends Template
         <link href=\"https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css\" rel=\"stylesheet\">
         <link rel=\"stylesheet\" href=\"{{ asset('css/app.css') }}\" >
         {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
+            {# {% block importmap %}{{ importmap('app') }}{% endblock %} #}
         {% endblock %}
     </head>
     <body>
-        <nav class=\"navbar navbar-expand-lg navbar-light bg-light\">
+        <nav class=\"navbar navbar-expand-lg navbar-light bg-gradient shadow-sm\">
             <div class=\"container-fluid\">
-                <a class=\"navbar-brand\" href=\"{{ path('app_home') }}\">TechMind</a>
-                
-                <div class=\"collapse navbar-collapse\">
-                    <ul class=\"navbar-nav ml-auto\">
+                <a class=\"navbar-brand text-white fw-bold\" href=\"{{ path('app_home') }}\">Techmind</a>
+        
+                <button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">
+                    <span class=\"navbar-toggler-icon\"></span>
+                </button>
+        
+                <div class=\"collapse navbar-collapse\" id=\"navbarNav\" style=\"position: absolute; right: 30px;\">
+                    <ul class=\"navbar-nav ms-auto\">
                         {% if app.user %}
                             <li class=\"nav-item\">
-                                <a class=\"nav-link\" href=\"{{ path('app_dashboard') }}\">Dashboard</a>
+                                <a class=\"nav-link text-white base-link\" href=\"{{ path('app_dashboard') }}\">Dashboard</a>
                             </li>
                             <li class=\"nav-item\">
-                                <a class=\"nav-link\" href=\"{{ path('app_logout') }}\">Odhlásit se</a>
+                                <a class=\"nav-link text-white base-link\" href=\"{{ path('app_logout') }}\">Odhlásit se</a>
                             </li>
                         {% else %}
                             <li class=\"nav-item\">
-                                <a class=\"nav-link\" href=\"{{ path('app_login') }}\">Přihlásit se</a>
+                                <a class=\"nav-link text-white base-link\" href=\"{{ path('app_login') }}\">Přihlásit se</a>
                             </li>
                             <li class=\"nav-item\">
-                                <a class=\"nav-link\" href=\"{{ path('app_register') }}\">Registrovat</a>
+                                <a class=\"nav-link text-white base-link\" href=\"{{ path('app_register') }}\">Registrovat</a>
                             </li>
                         {% endif %}
                     </ul>
                 </div>
+
             </div>
         </nav>
+        
+        <style>
+            .bg-gradient {
+                background: linear-gradient(135deg, #D5A9F7 0%, #2575fc 100%);
+            }
+        
+            .navbar-brand {
+                font-size: 1.5rem;
+                letter-spacing: 1px;
+            }
+        
+            .base-link {
+                font-size: 1rem;
+                font-weight: 500;
+                padding: 8px 15px;
+            }
+        
+            .base-link:hover {
+                color: #fff !important;
+                background-color: transparent;
+                border-radius: 5px;
+            }
+        
+            .navbar {
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+        
+            .base-link {
+                color: #fff !important;
+            }
+    
+            .base-link:hover {
+                color: #fff !important;
+                background-color: transparent;
+            }
+        </style>
+        
+        
         {% block body %}{% endblock %}
-         <script src=\"https://code.jquery.com/jquery-3.5.1.slim.min.js\"></script>
+        <script src=\"https://code.jquery.com/jquery-3.5.1.slim.min.js\"></script>
         <script src=\"https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js\"></script>
-        <script src=\"https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js\"></script>
+        <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js\"></script>
     </body>
 </html>
 ", "base.html.twig", "C:\\Users\\adamp\\OneDrive\\Plocha\\rsp\\templates\\base.html.twig");

@@ -12,12 +12,62 @@
                             Uživatelský profil
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#">
+                            <i class="bi bi-bag-dash"></i>
+                            Úkoly a notifikace
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#">
+                            <i class="bi bi-wrench"></i>
+                            Helpdesk
+                        </a>
+                    </li>
+                    {% if is_granted('ROLE_REVIEWER') %}
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="#">
+                                <i class="bi bi-bi-chat-left-text"></i>
+                                Napsat recenzi
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="#">
+                                <i class="bi bi-database"></i>
+                                Admin panel
+                            </a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>
 
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            
+            <!-- Flashes -->
+            {% for label, messages in app.flashes %}
+                <div class="alert alert-{{ label }}">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            {% if is_granted('ROLE_ADMINISTRATOR') %}
+                Vítejte ADMINE, <a href="#">Přejít do administrace</a>
+            {% endif %}
+            {% if is_granted('ROLE_REVIEWER') %}
+                Vítejte recenzente, <a href="#">Napsat recenzi</a>
+            {% endif %}
+            {% if is_granted('ROLE_AUTHOR') %}
+                {% include 'dashboard/author.html.twig' with {'form': createsubmissionform, 'submissions': submissions} %}
+            {% endif %}
+            {% if is_granted('ROLE_EDITOR') %}
+                {% include 'dashboard/editor.html.twig' with {'submissions': submissions} %}
+            {% endif %}
+            {% if is_granted('ROLE_EDITORCHIEF') %}
+                {% include 'dashboard/editorchief.html.twig' with {'submissions': submissions} %}
+            {% endif %}
         </main>
     </div>
 </div>

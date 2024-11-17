@@ -30,11 +30,11 @@ class RegistrationFormType extends AbstractType
                 'entry_type'   => ChoiceType::class,
                 'entry_options'  => [
                     'choices'  => [
-                        'Autor' => 'AUTHOR',
-                        'Recenzent' => 'REVIEWER',
-                        'Redaktor' => 'EDITOR',
-                        'Šéfredaktor' => 'EDITORCHIEF',
-                        'Administrátor' => 'ADMINISTRATOR'
+                        'Autor' => 'ROLE_AUTHOR',
+                        'Recenzent' => 'ROLE_REVIEWER',
+                        'Redaktor' => 'ROLE_EDITOR',
+                        'Šéfredaktor' => 'ROLE_EDITORCHIEF',
+                        'Administrátor' => 'ROLE_ADMINISTRATOR'
                     ]
                 ],
                 'constraints' => [

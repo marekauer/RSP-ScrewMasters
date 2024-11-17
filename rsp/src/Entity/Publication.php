@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PublicationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PublicationRepository::class)]
@@ -21,11 +23,18 @@ class Publication
 
     #[ORM\ManyToOne(inversedBy: 'publications')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Author $author = null;
-
-    #[ORM\ManyToOne(inversedBy: 'publications')]
-    #[ORM\JoinColumn(nullable: false)]
     private ?PublicationCategory $publicationCategory = null;
+
+    /**
+     * @var Collection<int, PublicatedSubmission>
+     */
+    #[ORM\OneToMany(targetEntity: PublicatedSubmission::class, mappedBy: 'publication', orphanRemoval: true)]
+    private Collection $publicatedSubmissions;
+
+    public function __construct()
+    {
+        $this->publicatedSubmissions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -56,18 +65,6 @@ class Publication
         return $this;
     }
 
-    public function getAuthor(): ?Author
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(?Author $author): static
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
     public function getPublicationCategory(): ?PublicationCategory
     {
         return $this->publicationCategory;
@@ -76,6 +73,36 @@ class Publication
     public function setPublicationCategory(?PublicationCategory $publicationCategory): static
     {
         $this->publicationCategory = $publicationCategory;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PublicatedSubmission>
+     */
+    public function getPublicatedSubmissions(): Collection
+    {
+        return $this->publicatedSubmissions;
+    }
+
+    public function addPublicatedSubmission(PublicatedSubmission $publicatedSubmission): static
+    {
+        if (!$this->publicatedSubmissions->contains($publicatedSubmission)) {
+            $this->publicatedSubmissions->add($publicatedSubmission);
+            $publicatedSubmission->setPublication($this);
+        }
+
+        return $this;
+    }
+
+    public function removePublicatedSubmission(PublicatedSubmission $publicatedSubmission): static
+    {
+        if ($this->publicatedSubmissions->removeElement($publicatedSubmission)) {
+            // set the owning side to null (unless already changed)
+            if ($publicatedSubmission->getPublication() === $this) {
+                $publicatedSubmission->setPublication(null);
+            }
+        }
 
         return $this;
     }

@@ -16,6 +16,19 @@ class AuthorRepository extends ServiceEntityRepository
         parent::__construct($registry, Author::class);
     }
 
+    public function findAuthorByUserIdentifierAndTeamId(string $userIdentifier, int $teamId): ?Author
+    {
+        return $this->createQueryBuilder('a')
+            ->innerJoin('a.user', 'u') 
+            ->innerJoin('a.team', 't') 
+            ->where('u.email = :userIdentifier') 
+            ->andWhere('t.id = :teamId') 
+            ->setParameter('userIdentifier', $userIdentifier)
+            ->setParameter('teamId', $teamId)
+            ->getQuery()
+            ->getOneOrNullResult(); 
+    }
+
     //    /**
     //     * @return Author[] Returns an array of Author objects
     //     */

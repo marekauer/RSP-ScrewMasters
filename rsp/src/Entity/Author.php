@@ -19,15 +19,20 @@ class Author
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    #[ORM\ManyToOne(inversedBy: 'authors')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?AuthorTeam $team = null;
+
     /**
-     * @var Collection<int, Publication>
+     * @var Collection<int, Submission>
      */
-    #[ORM\OneToMany(targetEntity: Publication::class, mappedBy: 'author')]
-    private Collection $publications;
+    #[ORM\OneToMany(targetEntity: Submission::class, mappedBy: 'author')]
+    private Collection $submissions;
 
     public function __construct()
     {
         $this->publications = new ArrayCollection();
+        $this->submissions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -47,33 +52,46 @@ class Author
         return $this;
     }
 
-    /**
-     * @return Collection<int, Publication>
-     */
-    public function getPublications(): Collection
+    public function getTeam(): ?AuthorTeam
     {
-        return $this->publications;
+        return $this->team;
     }
 
-    public function addPublication(Publication $publication): static
+    public function setTeam(?AuthorTeam $team): static
     {
-        if (!$this->publications->contains($publication)) {
-            $this->publications->add($publication);
-            $publication->setAuthor($this);
+        $this->team = $team;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Submission>
+     */
+    public function getSubmissions(): Collection
+    {
+        return $this->submissions;
+    }
+
+    public function addSubmission(Submission $submission): static
+    {
+        if (!$this->submissions->contains($submission)) {
+            $this->submissions->add($submission);
+            $submission->setAuthor($this);
         }
 
         return $this;
     }
 
-    public function removePublication(Publication $publication): static
+    public function removeSubmission(Submission $submission): static
     {
-        if ($this->publications->removeElement($publication)) {
+        if ($this->submissions->removeElement($submission)) {
             // set the owning side to null (unless already changed)
-            if ($publication->getAuthor() === $this) {
-                $publication->setAuthor(null);
+            if ($submission->getAuthor() === $this) {
+                $submission->setAuthor(null);
             }
         }
 
         return $this;
     }
+
 }

@@ -49,6 +49,7 @@ class Review
     #[ORM\JoinColumn(nullable: false)]
     private ?Submission $submission = null;
 
+
     public function getId(): ?int
     {
         return $this->id;
@@ -185,4 +186,5 @@ class Review
 
         return $this;
     }
+
 }

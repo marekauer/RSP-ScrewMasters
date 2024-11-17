@@ -1,8 +1,4 @@
 security:
-    role_hierarchy:
-        ROLE_USER: ROLE_USER
-        ROLE_LUNCHVENDOR: ROLE_LUNCHVENDOR
-        ROLE_ADMIN: ROLE_ADMIN
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     providers:
@@ -25,7 +21,7 @@ security:
             logout:
                 path: app_logout
     access_control:
-        - { path: ^/dashboard, roles: [ROLE_USER] }
+        - { path: ^/dashboard, roles: [ROLE_AUTHOR, ROLE_EDITOR, ROLE_EDITORCHIEF, ROLE_REVIEWER, ROLE_ADMINISTRATOR] }
 
 when@test:
     security:

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container mt-5">
+    <h2 class="ml-3">Seznam článků</h2>
+    <div class="container mt-2">
+        <div class="list-group mt-2 shadow-sm">
+            {% for psub in psubs %}
+                <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <h5 class="fw-bold text-primary">{{ psub.name }}</h5>
+                        <small class="text-secondary">
+                            Publikováno: {{ psub.publicatedAt|date('d. m. Y') }}
+                        </small>
+                    </div>
+                    <a href="/uploads/{{ psub ? psub.filename : '#' }}" class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-book"></i> Přečíst
+                    </a>
+                </div>
+            {% else %}
+                <p class="text-center text-muted">Žádné publikované články k zobrazení.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <nav aria-label="Pagination" class="mt-4">
+        {# @TODO DODĚLAT #}
+    </nav>
+</div>
+{% endblock %}

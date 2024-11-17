@@ -16,28 +16,46 @@ class PublicatedSubmissionRepository extends ServiceEntityRepository
         parent::__construct($registry, PublicatedSubmission::class);
     }
 
-    //    /**
-    //     * @return PublicatedSubmission[] Returns an array of PublicatedSubmission objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('p.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findLatest()
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.submission', 's')         
+            ->join('s.author', 'a')             
+            ->join('a.user', 'u')               
+            ->leftJoin('s.submitedFiles', 'sf', 'WITH', 'sf.createdAt = (SELECT MAX(sf2.createdAt) FROM App\Entity\SubmitedFile sf2 WHERE sf2.submission = s)') // Subquery to get the latest SubmitedFile
+            ->select('p', 's.name', 'u.email', 'p.publicatedAt', 'sf.filename') 
+            ->orderBy('p.publicatedAt', 'DESC')     
+            ->setMaxResults(1)                   
+            ->getQuery()
+            ->getOneOrNullResult();  
+    }
 
-    //    public function findOneBySomeField($value): ?PublicatedSubmission
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findAllExcludingLatest()
+    {
+        $latestIdQuery = $this->createQueryBuilder('p2')
+        ->select('p2.id')
+        ->orderBy('p2.publicatedAt', 'DESC')
+        ->setMaxResults(1)
+        ->getQuery()
+        ->getSingleScalarResult(); // Fetch the ID of the latest publication
+    
+    return $this->createQueryBuilder('p')
+        ->join('p.submission', 's')         
+        ->join('s.author', 'a')             
+        ->join('a.user', 'u')               
+        ->leftJoin(
+            's.submitedFiles',
+            'sf',
+            'WITH',
+            'sf.createdAt = (SELECT MAX(sf2.createdAt) FROM App\Entity\SubmitedFile sf2 WHERE sf2.submission = s)'
+        )
+        ->select('p', 's.name', 'u.email', 'p.publicatedAt', 'sf.filename') 
+        ->where('p.id != :latestId')
+        ->setParameter('latestId', $latestIdQuery) // Exclude the latest publication ID
+        ->orderBy('p.publicatedAt', 'DESC')
+        ->getQuery()
+        ->getResult();
+    
+    }
+
 }

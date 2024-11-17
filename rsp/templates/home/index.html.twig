@@ -3,44 +3,71 @@
 {% block title %}TechMind{% endblock %}
 
 {% block body %}
-    <div class="container my-5">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="card bg-light mb-4" style="height: 350px;">
-                    <div class="card-body">
-                        <h3 class="card-title">Latest News</h3>
-                        <p class="card-text">
-                            Brief and catchy description.<br>
-                            <small>Write your short sub-heading or description.</small>
-                        </p>
-                    </div>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-12">
+            <div class="card shadow-lg border-light">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/001/626/459/original/abstract-light-green-particles-wave-background-free-video.jpg" class="card-img-top" alt="Article image">
+                <div class="card-body">
+                    <h1 class="card-title mb-3">
+                        {% if lastPublicatedSubmission %}
+                            {{ lastPublicatedSubmission.name }}
+                        {% else %}
+                            The Power of Technology in Education
+                        {% endif %}
+                    </h1>
+                    <p class="text-muted mb-3">
+                        {% if lastPublicatedSubmission %}
+                            Autor: <strong>{{ lastPublicatedSubmission.email }}</strong> | {{ lastPublicatedSubmission.publicatedAt|date('d.m.Y', 'Europe/Prague') }}
+                        {% else %}
+                            Autor: <strong>John Doe</strong> | November 15, 2024
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="/uploads/{{ lastPublicatedSubmission ? lastPublicatedSubmission.filename : '#' }}" class="btn btn-primary btn-lg rounded-pill px-4 py-2" target="_blank">Přečíst (PDF)</a>
+                </div>
+                <div class="mt-4 text-center">
+                    <a href="{{ path('app_psub') }}" class="btn btn-warning btn-lg rounded-pill px-4 py-2 mb-2">Zobrazit více článků</a>
                 </div>
             </div>
-        </div>
-
-        <div class="row">
-            {% for i in 1..3 %}
-                <div class="col-md-4 mb-4">
-                    <div class="card bg-light" style="height: 200px;">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">NEWS TITLE {{ i }}</h5>
-                            <p class="card-text">Brief description or excerpt of the news.</p>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-
-        <div class="d-flex justify-content-center mt-4">
-            <a href="{{ path('app_publication') }}" class="btn btn-lg btn-warning border border-dark rounded-pill px-4 py-2">Zobrazit více</a>
         </div>
     </div>
+</div>
 
-    <section class="py-1">
-        <div class="container">
-            <div class="row">
-                <i>Školní projekt VŠPJ, ScrewMasters</i>
-            </div>
+<style>
+    .card {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .card-img-top {
+        object-fit: cover;
+        height: 400px;
+    }
+    .card-body {
+        padding: 30px;
+    }
+    .card-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #343a40;
+    }
+    .card-text {
+        font-size: 1.125rem;
+        color: #6c757d;
+    }
+    .card-footer {
+        background-color: #f8f9fa;
+        border-top: 1px solid #ddd;
+    }
+</style>
+
+<section class="py-1">
+    <div class="container">
+        <div class="row">
+            <i>Školní projekt VŠPJ, ScrewMasters</i>
         </div>
-    </section>
+    </div>
+</section>
 {% endblock %}

@@ -20,6 +20,9 @@ class SubmitedFile
     #[ORM\JoinColumn(nullable: false)]
     private ?Submission $submission = null;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +48,18 @@ class SubmitedFile
     public function setSubmission(?Submission $submission): static
     {
         $this->submission = $submission;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

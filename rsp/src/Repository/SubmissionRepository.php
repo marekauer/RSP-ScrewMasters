@@ -16,28 +16,51 @@ class SubmissionRepository extends ServiceEntityRepository
         parent::__construct($registry, Submission::class);
     }
 
-    //    /**
-    //     * @return Submission[] Returns an array of Submission objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('s.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findAllByUserIdentifier(string $userIdentifier): array
+    {
+        return $this->createQueryBuilder('s')
+            ->innerJoin('s.submitedFiles', 'sf')
+            ->innerJoin('s.author', 'a')
+            ->innerJoin('a.user', 'u')
+            ->where('u.email = :userIdentifier')
+            ->setParameter('userIdentifier', $userIdentifier)
+            ->orderBy('s.createdAt', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
+    }
 
-    //    public function findOneBySomeField($value): ?Submission
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findAllForPublication(): array
+    {
+        return $this->createQueryBuilder('s')
+            ->innerJoin('s.submitedFiles', 'sf')
+            ->where('s.status = 0 or s.status = 1')
+            ->orderBy('s.createdAt', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllEditorSubmited(): array
+    {
+        return $this->createQueryBuilder('s')
+            ->innerJoin('s.submitedFiles', 'sf')
+            ->where('s.status = :submissionStatus')
+            ->setParameter('submissionStatus', 1)
+            ->orderBy('s.createdAt', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllAuthorSubmited(): array
+    {
+        return $this->createQueryBuilder('s')
+            ->innerJoin('s.submitedFiles', 'sf')
+            ->where('s.status = :submissionStatus')
+            ->setParameter('submissionStatus', 0)
+            ->orderBy('s.createdAt', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+
 }

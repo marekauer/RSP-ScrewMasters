@@ -26,21 +26,32 @@ class Submission
     private ?\DateTimeImmutable $createdAt = null;
 
     /**
-     * @var Collection<int, Review>
-     */
-    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'submission')]
-    private Collection $reviews;
-
-    /**
      * @var Collection<int, SubmitedFile>
      */
     #[ORM\OneToMany(targetEntity: SubmitedFile::class, mappedBy: 'submission')]
-    private Collection $submissionFiles;
+    private Collection $submitedFiles;
+
+    #[ORM\ManyToOne(inversedBy: 'submissions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Author $author = null;
+
+    /**
+     * @var Collection<int, Review>
+     */
+    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'submission', orphanRemoval: true)]
+    private Collection $reviews;
+
+    /**
+     * @var Collection<int, ReviewSubmission>
+     */
+    #[ORM\OneToMany(targetEntity: ReviewSubmission::class, mappedBy: 'submission', orphanRemoval: true)]
+    private Collection $reviewSubmissions;
 
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
-        $this->submissionFiles = new ArrayCollection();
+        $this->submitedFiles = new ArrayCollection();
+        $this->reviewSubmissions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -85,6 +96,47 @@ class Submission
     }
 
     /**
+     * @return Collection<int, SubmitedFile>
+     */
+    public function getSubmitedFiles(): Collection
+    {
+        return $this->submitedFiles;
+    }
+
+    public function addSubmitedFiles(SubmitedFile $submissionFile): static
+    {
+        if (!$this->submitedFiles->contains($submissionFile)) {
+            $this->submitedFiles->add($submissionFile);
+            $submissionFile->setSubmission($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubmitedFile(SubmitedFile $submitedFile): static
+    {
+        if ($this->submitedFiles->removeElement($submitedFile)) {
+            if ($submitedFile->getSubmission() === $this) {
+                $submitedFile->setSubmission(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAuthor(): ?Author
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?Author $author): static
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
      * @return Collection<int, Review>
      */
     public function getReviews(): Collection
@@ -115,29 +167,29 @@ class Submission
     }
 
     /**
-     * @return Collection<int, SubmitedFile>
+     * @return Collection<int, ReviewSubmission>
      */
-    public function getSubmissionFiles(): Collection
+    public function getReviewSubmissions(): Collection
     {
-        return $this->submissionFiles;
+        return $this->reviewSubmissions;
     }
 
-    public function addSubmissionFile(SubmitedFile $submissionFile): static
+    public function addReviewSubmission(ReviewSubmission $reviewSubmission): static
     {
-        if (!$this->submissionFiles->contains($submissionFile)) {
-            $this->submissionFiles->add($submissionFile);
-            $submissionFile->setSubmission($this);
+        if (!$this->reviewSubmissions->contains($reviewSubmission)) {
+            $this->reviewSubmissions->add($reviewSubmission);
+            $reviewSubmission->setSubmission($this);
         }
 
         return $this;
     }
 
-    public function removeSubmissionFile(SubmitedFile $submissionFile): static
+    public function removeReviewSubmission(ReviewSubmission $reviewSubmission): static
     {
-        if ($this->submissionFiles->removeElement($submissionFile)) {
+        if ($this->reviewSubmissions->removeElement($reviewSubmission)) {
             // set the owning side to null (unless already changed)
-            if ($submissionFile->getSubmission() === $this) {
-                $submissionFile->setSubmission(null);
+            if ($reviewSubmission->getSubmission() === $this) {
+                $reviewSubmission->setSubmission(null);
             }
         }
 

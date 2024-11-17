@@ -2,18 +2,18 @@
 
 namespace App\Repository;
 
-use App\Entity\SubmissionFile;
+use App\Entity\SubmitedFile;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<SubmissionFile>
+ * @extends ServiceEntityRepository<SubmitedFile>
  */
 class SubmissionFileRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, SubmissionFile::class);
+        parent::__construct($registry, SubmitedFile::class);
     }
 
 //    /**
