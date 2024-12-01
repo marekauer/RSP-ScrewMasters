@@ -150,6 +150,6 @@ class __TwigTemplate_2c213dfa39c550792b36ce83420bfb8c extends Template
         <button class=\"btn btn-primary mt-2\">Uložit</button>
     {{ form_end(form) }}
 </div>
-{% endblock %}", "profile/edit.html.twig", "C:\\Users\\adamp\\OneDrive\\Plocha\\rsp\\templates\\profile\\edit.html.twig");
+{% endblock %}", "profile/edit.html.twig", "C:\\Users\\Uživatel\\Desktop\\Programing\\VŠPJ\\RSP\\RSP-ScrewMasters\\rsp\\templates\\profile\\edit.html.twig");
     }
 }

@@ -15,6 +15,9 @@ return [
         '/_profiler/xdebug' => [[['_route' => '_profiler_xdebug', '_controller' => 'web_profiler.controller.profiler::xdebugAction'], null, null, null, false, false, null]],
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
         '/admin/dashboard' => [[['_route' => 'app_admin_dashboard', '_controller' => 'App\\Controller\\AdminDashboardController::index'], null, null, null, false, false, null]],
+        '/autor_teams' => [[['_route' => 'app_autorteams', '_controller' => 'App\\Controller\\ChiefdashboardController::index'], null, ['GET' => 0], null, false, false, null]],
+        '/add-author' => [[['_route' => 'app_add_author', '_controller' => 'App\\Controller\\ChiefdashboardController::addAuthor'], null, ['POST' => 0], null, false, false, null]],
+        '/autor_teams/create' => [[['_route' => 'app_autorteams_create', '_controller' => 'App\\Controller\\ChiefdashboardController::createTeam'], null, ['POST' => 0], null, false, false, null]],
         '/dashboard' => [[['_route' => 'app_dashboard', '_controller' => 'App\\Controller\\DashboardController::index'], null, null, null, false, false, null]],
         '/helpdesk' => [[['_route' => 'app_helpdesk', '_controller' => 'App\\Controller\\HelpDeskController::index'], null, null, null, false, false, null]],
         '/' => [[['_route' => 'app_home', '_controller' => 'App\\Controller\\HomeController::home'], null, null, null, false, false, null]],
@@ -46,6 +49,10 @@ return [
                         .')'
                     .')'
                 .')'
+                .'|/autor_teams/(?'
+                    .'|delete/([^/]++)(*:233)'
+                    .'|edit/([^/]++)(*:254)'
+                .')'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -56,8 +63,10 @@ return [
         148 => [[['_route' => '_profiler_router', '_controller' => 'web_profiler.controller.router::panelAction'], ['token'], null, null, false, false, null]],
         168 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
         181 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
-        191 => [
-            [['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null],
+        191 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
+        233 => [[['_route' => 'app_autorteams_delete', '_controller' => 'App\\Controller\\ChiefdashboardController::deleteTeam'], ['id'], ['POST' => 0], null, false, true, null]],
+        254 => [
+            [['_route' => 'app_autorteams_edit', '_controller' => 'App\\Controller\\ChiefdashboardController::editTeam'], ['id'], ['POST' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

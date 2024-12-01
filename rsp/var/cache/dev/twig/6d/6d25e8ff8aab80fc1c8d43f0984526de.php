@@ -299,6 +299,6 @@ class __TwigTemplate_4156063c65c59a7b33b3b28dcd068486 extends Template
     </div>
 </section>
 {% endblock %}
-", "home/index.html.twig", "C:\\Users\\adamp\\OneDrive\\Plocha\\rsp\\templates\\home\\index.html.twig");
+", "home/index.html.twig", "C:\\Users\\Uživatel\\Desktop\\Programing\\VŠPJ\\RSP\\RSP-ScrewMasters\\rsp\\templates\\home\\index.html.twig");
     }
 }

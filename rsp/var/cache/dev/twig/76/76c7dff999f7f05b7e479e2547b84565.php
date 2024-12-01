@@ -68,16 +68,17 @@ class __TwigTemplate_95770bccb00a474daf73fa737f0e0bb0 extends Template
         // line 11
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("css/app.css"), "html", null, true);
         yield "\" >
+
         ";
-        // line 12
+        // line 13
         yield from $this->unwrap()->yieldBlock('javascripts', $context, $blocks);
-        // line 15
+        // line 16
         yield "    </head>
     <body>
         <nav class=\"navbar navbar-expand-lg navbar-light bg-gradient shadow-sm\">
             <div class=\"container-fluid\">
                 <a class=\"navbar-brand text-white fw-bold\" href=\"";
-        // line 19
+        // line 20
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_home");
         yield "\">Techmind</a>
         
@@ -88,39 +89,39 @@ class __TwigTemplate_95770bccb00a474daf73fa737f0e0bb0 extends Template
                 <div class=\"collapse navbar-collapse\" id=\"navbarNav\" style=\"position: absolute; right: 30px;\">
                     <ul class=\"navbar-nav ms-auto\">
                         ";
-        // line 27
-        if (CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 27, $this->source); })()), "user", [], "any", false, false, false, 27)) {
-            // line 28
+        // line 28
+        if (CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 28, $this->source); })()), "user", [], "any", false, false, false, 28)) {
+            // line 29
             yield "                            <li class=\"nav-item\">
                                 <a class=\"nav-link text-white base-link\" href=\"";
-            // line 29
+            // line 30
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_dashboard");
             yield "\">Dashboard</a>
                             </li>
                             <li class=\"nav-item\">
                                 <a class=\"nav-link text-white base-link\" href=\"";
-            // line 32
+            // line 33
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_logout");
             yield "\">Odhlásit se</a>
                             </li>
                         ";
         } else {
-            // line 35
+            // line 36
             yield "                            <li class=\"nav-item\">
                                 <a class=\"nav-link text-white base-link\" href=\"";
-            // line 36
+            // line 37
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
             yield "\">Přihlásit se</a>
                             </li>
                             <li class=\"nav-item\">
                                 <a class=\"nav-link text-white base-link\" href=\"";
-            // line 39
+            // line 40
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_register");
             yield "\">Registrovat</a>
                             </li>
                         ";
         }
-        // line 42
+        // line 43
         yield "                    </ul>
                 </div>
 
@@ -165,9 +166,9 @@ class __TwigTemplate_95770bccb00a474daf73fa737f0e0bb0 extends Template
         
         
         ";
-        // line 85
-        yield from $this->unwrap()->yieldBlock('body', $context, $blocks);
         // line 86
+        yield from $this->unwrap()->yieldBlock('body', $context, $blocks);
+        // line 87
         yield "        <script src=\"https://code.jquery.com/jquery-3.5.1.slim.min.js\"></script>
         <script src=\"https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js\"></script>
         <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js\"></script>
@@ -230,7 +231,7 @@ class __TwigTemplate_95770bccb00a474daf73fa737f0e0bb0 extends Template
         yield from [];
     }
 
-    // line 12
+    // line 13
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -243,9 +244,9 @@ class __TwigTemplate_95770bccb00a474daf73fa737f0e0bb0 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascripts"));
 
-        // line 13
-        yield "            ";
         // line 14
+        yield "            ";
+        // line 15
         yield "        ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -256,7 +257,7 @@ class __TwigTemplate_95770bccb00a474daf73fa737f0e0bb0 extends Template
         yield from [];
     }
 
-    // line 85
+    // line 86
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -299,7 +300,7 @@ class __TwigTemplate_95770bccb00a474daf73fa737f0e0bb0 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  260 => 85,  249 => 14,  247 => 13,  234 => 12,  223 => 8,  210 => 7,  187 => 5,  171 => 86,  169 => 85,  124 => 42,  118 => 39,  112 => 36,  109 => 35,  103 => 32,  97 => 29,  94 => 28,  92 => 27,  81 => 19,  75 => 15,  73 => 12,  69 => 11,  65 => 9,  63 => 7,  58 => 5,  52 => 1,);
+        return array (  261 => 86,  250 => 15,  248 => 14,  235 => 13,  224 => 8,  211 => 7,  188 => 5,  172 => 87,  170 => 86,  125 => 43,  119 => 40,  113 => 37,  110 => 36,  104 => 33,  98 => 30,  95 => 29,  93 => 28,  82 => 20,  76 => 16,  74 => 13,  69 => 11,  65 => 9,  63 => 7,  58 => 5,  52 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -315,6 +316,7 @@ class __TwigTemplate_95770bccb00a474daf73fa737f0e0bb0 extends Template
         <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css\">
         <link href=\"https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css\" rel=\"stylesheet\">
         <link rel=\"stylesheet\" href=\"{{ asset('css/app.css') }}\" >
+
         {% block javascripts %}
             {# {% block importmap %}{{ importmap('app') }}{% endblock %} #}
         {% endblock %}
@@ -394,6 +396,6 @@ class __TwigTemplate_95770bccb00a474daf73fa737f0e0bb0 extends Template
         <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js\"></script>
     </body>
 </html>
-", "base.html.twig", "C:\\Users\\adamp\\OneDrive\\Plocha\\rsp\\templates\\base.html.twig");
+", "base.html.twig", "C:\\Users\\Uživatel\\Desktop\\Programing\\VŠPJ\\RSP\\RSP-ScrewMasters\\rsp\\templates\\base.html.twig");
     }
 }

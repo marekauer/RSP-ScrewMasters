@@ -212,6 +212,6 @@ class __TwigTemplate_9d51bd3a6f341f6fb732a4a7d85f2a41 extends Template
     </form>
 </div>
 {% endblock %}
-", "security/login.html.twig", "C:\\Users\\adamp\\OneDrive\\Plocha\\rsp\\templates\\security\\login.html.twig");
+", "security/login.html.twig", "C:\\Users\\Uživatel\\Desktop\\Programing\\VŠPJ\\RSP\\RSP-ScrewMasters\\rsp\\templates\\security\\login.html.twig");
     }
 }

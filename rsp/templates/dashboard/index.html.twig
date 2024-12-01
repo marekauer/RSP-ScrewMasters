@@ -40,6 +40,14 @@
                             </a>
                         </li>
                     {% endif %}
+                    {% if is_granted('ROLE_EDITORCHIEF') %}
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="{{ path('app_autorteams') }}">
+                                <i class="bi bi-database"></i>
+                                Autorské týmy
+                            </a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>

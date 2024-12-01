@@ -124,6 +124,21 @@ class __TwigTemplate_1bc81e1e21b14d262ae2593fb96bbd12 extends Template
                     ";
         }
         // line 43
+        yield "                    ";
+        if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_EDITORCHIEF")) {
+            // line 44
+            yield "                        <li class=\"nav-item\">
+                            <a class=\"nav-link text-dark\" href=\"";
+            // line 45
+            yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_autorteams");
+            yield "\">
+                                <i class=\"bi bi-database\"></i>
+                                Autorské týmy
+                            </a>
+                        </li>
+                    ";
+        }
+        // line 51
         yield "                </ul>
             </div>
         </nav>
@@ -131,20 +146,20 @@ class __TwigTemplate_1bc81e1e21b14d262ae2593fb96bbd12 extends Template
         <main class=\"col-md-9 ms-sm-auto col-lg-10 px-md-4\">
             <!-- Flashes -->
             ";
-        // line 49
+        // line 57
         $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 49, $this->source); })()), "flashes", [], "any", false, false, false, 49));
+        $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 57, $this->source); })()), "flashes", [], "any", false, false, false, 57));
         foreach ($context['_seq'] as $context["label"] => $context["messages"]) {
-            // line 50
+            // line 58
             yield "                <div class=\"alert alert-";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($context["label"], "html", null, true);
             yield "\">
                     ";
-            // line 51
+            // line 59
             $context['_parent'] = $context;
             $context['_seq'] = CoreExtension::ensureTraversable($context["messages"]);
             foreach ($context['_seq'] as $context["_key"] => $context["message"]) {
-                // line 52
+                // line 60
                 yield "                        <p>";
                 yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($context["message"], "html", null, true);
                 yield "</p>
@@ -153,55 +168,55 @@ class __TwigTemplate_1bc81e1e21b14d262ae2593fb96bbd12 extends Template
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_key'], $context['message'], $context['_parent']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 54
+            // line 62
             yield "                </div>
             ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['label'], $context['messages'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 56
+        // line 64
         yield "            ";
         if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMINISTRATOR")) {
-            // line 57
+            // line 65
             yield "                Vítejte ADMINE, <a href=\"#\">Přejít do administrace</a>
             ";
         }
-        // line 59
+        // line 67
         yield "            ";
         if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_REVIEWER")) {
-            // line 60
+            // line 68
             yield "                Vítejte recenzente, <a href=\"#\">Napsat recenzi</a>
             ";
         }
-        // line 62
+        // line 70
         yield "            ";
         if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_AUTHOR")) {
-            // line 63
+            // line 71
             yield "                ";
-            yield from             $this->loadTemplate("dashboard/author.html.twig", "dashboard/index.html.twig", 63)->unwrap()->yield(CoreExtension::merge($context, ["form" => (isset($context["createsubmissionform"]) || array_key_exists("createsubmissionform", $context) ? $context["createsubmissionform"] : (function () { throw new RuntimeError('Variable "createsubmissionform" does not exist.', 63, $this->source); })()), "submissions" => (isset($context["submissions"]) || array_key_exists("submissions", $context) ? $context["submissions"] : (function () { throw new RuntimeError('Variable "submissions" does not exist.', 63, $this->source); })())]));
-            // line 64
+            yield from             $this->loadTemplate("dashboard/author.html.twig", "dashboard/index.html.twig", 71)->unwrap()->yield(CoreExtension::merge($context, ["form" => (isset($context["createsubmissionform"]) || array_key_exists("createsubmissionform", $context) ? $context["createsubmissionform"] : (function () { throw new RuntimeError('Variable "createsubmissionform" does not exist.', 71, $this->source); })()), "submissions" => (isset($context["submissions"]) || array_key_exists("submissions", $context) ? $context["submissions"] : (function () { throw new RuntimeError('Variable "submissions" does not exist.', 71, $this->source); })())]));
+            // line 72
             yield "            ";
         }
-        // line 65
+        // line 73
         yield "            ";
         if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_EDITOR")) {
-            // line 66
+            // line 74
             yield "                ";
-            yield from             $this->loadTemplate("dashboard/editor.html.twig", "dashboard/index.html.twig", 66)->unwrap()->yield(CoreExtension::merge($context, ["submissions" => (isset($context["submissions"]) || array_key_exists("submissions", $context) ? $context["submissions"] : (function () { throw new RuntimeError('Variable "submissions" does not exist.', 66, $this->source); })())]));
-            // line 67
+            yield from             $this->loadTemplate("dashboard/editor.html.twig", "dashboard/index.html.twig", 74)->unwrap()->yield(CoreExtension::merge($context, ["submissions" => (isset($context["submissions"]) || array_key_exists("submissions", $context) ? $context["submissions"] : (function () { throw new RuntimeError('Variable "submissions" does not exist.', 74, $this->source); })())]));
+            // line 75
             yield "            ";
         }
-        // line 68
+        // line 76
         yield "            ";
         if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_EDITORCHIEF")) {
-            // line 69
+            // line 77
             yield "                ";
-            yield from             $this->loadTemplate("dashboard/editorchief.html.twig", "dashboard/index.html.twig", 69)->unwrap()->yield(CoreExtension::merge($context, ["submissions" => (isset($context["submissions"]) || array_key_exists("submissions", $context) ? $context["submissions"] : (function () { throw new RuntimeError('Variable "submissions" does not exist.', 69, $this->source); })())]));
-            // line 70
+            yield from             $this->loadTemplate("dashboard/editorchief.html.twig", "dashboard/index.html.twig", 77)->unwrap()->yield(CoreExtension::merge($context, ["submissions" => (isset($context["submissions"]) || array_key_exists("submissions", $context) ? $context["submissions"] : (function () { throw new RuntimeError('Variable "submissions" does not exist.', 77, $this->source); })())]));
+            // line 78
             yield "            ";
         }
-        // line 71
+        // line 79
         yield "        </main>
     </div>
 </div>
@@ -236,7 +251,7 @@ class __TwigTemplate_1bc81e1e21b14d262ae2593fb96bbd12 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  205 => 71,  202 => 70,  199 => 69,  196 => 68,  193 => 67,  190 => 66,  187 => 65,  184 => 64,  181 => 63,  178 => 62,  174 => 60,  171 => 59,  167 => 57,  164 => 56,  157 => 54,  148 => 52,  144 => 51,  139 => 50,  135 => 49,  127 => 43,  118 => 36,  115 => 35,  106 => 28,  104 => 27,  84 => 10,  76 => 4,  63 => 3,  40 => 1,);
+        return array (  220 => 79,  217 => 78,  214 => 77,  211 => 76,  208 => 75,  205 => 74,  202 => 73,  199 => 72,  196 => 71,  193 => 70,  189 => 68,  186 => 67,  182 => 65,  179 => 64,  172 => 62,  163 => 60,  159 => 59,  154 => 58,  150 => 57,  142 => 51,  133 => 45,  130 => 44,  127 => 43,  118 => 36,  115 => 35,  106 => 28,  104 => 27,  84 => 10,  76 => 4,  63 => 3,  40 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -283,6 +298,14 @@ class __TwigTemplate_1bc81e1e21b14d262ae2593fb96bbd12 extends Template
                             </a>
                         </li>
                     {% endif %}
+                    {% if is_granted('ROLE_EDITORCHIEF') %}
+                        <li class=\"nav-item\">
+                            <a class=\"nav-link text-dark\" href=\"{{ path('app_autorteams') }}\">
+                                <i class=\"bi bi-database\"></i>
+                                Autorské týmy
+                            </a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>
@@ -314,6 +337,6 @@ class __TwigTemplate_1bc81e1e21b14d262ae2593fb96bbd12 extends Template
         </main>
     </div>
 </div>
-{% endblock %}", "dashboard/index.html.twig", "C:\\Users\\adamp\\OneDrive\\Plocha\\rsp\\templates\\dashboard\\index.html.twig");
+{% endblock %}", "dashboard/index.html.twig", "C:\\Users\\Uživatel\\Desktop\\Programing\\VŠPJ\\RSP\\RSP-ScrewMasters\\rsp\\templates\\dashboard\\index.html.twig");
     }
 }

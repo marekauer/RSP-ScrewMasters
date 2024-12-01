@@ -255,6 +255,6 @@ class __TwigTemplate_b9ada13dc87d0b3c181f9c4fe1ac01a1 extends Template
 
 </div>
 {% endblock %}
-", "registration/register.html.twig", "C:\\Users\\adamp\\OneDrive\\Plocha\\rsp\\templates\\registration\\register.html.twig");
+", "registration/register.html.twig", "C:\\Users\\Uživatel\\Desktop\\Programing\\VŠPJ\\RSP\\RSP-ScrewMasters\\rsp\\templates\\registration\\register.html.twig");
     }
 }
