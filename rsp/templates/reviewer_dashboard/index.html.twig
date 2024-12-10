@@ -1,20 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ReviewerDashboardController!{% endblock %}
+{% block title %}Rozhraní recenzenta{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    {% for label, messages in app.flashes %}
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endfor %}
+    {% if reviewSubmissions is not empty %}
+        <h2>Požadavky na recenzi</h2>
+        <ul class="list-group">
+            {% for reviewSubmission in reviewSubmissions %}
+                <li class="list-group-item d-inline-flex">
+                    <h5>[{{ reviewSubmission.submission.name }}]</h5>
+                    <p class="mr-2 ml-2"><strong>Autor:</strong> {{ reviewSubmission.submission.author.user.email }}</p>
+                    {% if reviewSubmission.submission.submitedFiles is not empty %}
+                        {% set filePaths = [] %}
+                        {% set fileDates = [] %}
+                        
+                        {% for file in reviewSubmission.submission.submitedFiles %}
+                            {% set filePaths = filePaths|merge([file.filename]) %}
+                            {% set fileDates = fileDates|merge([file.createdAt|date("c")]) %}
+                        {% endfor %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/adamp/OneDrive/Plocha/rsp/src/Controller/ReviewerDashboardController.php</code></li>
-        <li>Your template at <code>C:/Users/adamp/OneDrive/Plocha/rsp/templates/reviewer_dashboard/index.html.twig</code></li>
-    </ul>
+                        <button 
+                            type="button" 
+                            class="btn btn-outline-primary ml-auto" 
+                            onclick="showFiles('{{ reviewSubmission.submission.name }}', {{ filePaths|json_encode(constant('JSON_PRETTY_PRINT')) }}, {{ fileDates|json_encode(constant('JSON_PRETTY_PRINT')) }})"
+                            data-bs-toggle="modal" 
+                            data-bs-target="#fileModal">
+                            Nahrané soubory
+                        </button>
+                    {% else %}
+                        <small class="text-muted">Žádné soubory</small>
+                    {% endif %}
+                    <div class="d-flex mt-2">
+                        <a class="btn btn-success ml-2" href="{{ path('app_dashboard_reviewer_form', {id: reviewSubmission.submission.id}) }}">
+                            Přejít na recenzní formulář
+                        </a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <p>Nemáte žádné recenzní požadavky.</p>
+        {% endif %}
 </div>
+
 {% endblock %}

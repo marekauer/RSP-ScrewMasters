@@ -15,7 +15,7 @@ class BusConfig
     private $defaultMiddleware;
     private $middleware;
     private $_usedProperties = [];
-    
+
     /**
      * @template TValue
      * @param TValue $value
@@ -28,20 +28,20 @@ class BusConfig
         if (!\is_array($value)) {
             $this->_usedProperties['defaultMiddleware'] = true;
             $this->defaultMiddleware = $value;
-    
+
             return $this;
         }
-    
+
         if (!$this->defaultMiddleware instanceof \Symfony\Config\Framework\Messenger\BusConfig\DefaultMiddlewareConfig) {
             $this->_usedProperties['defaultMiddleware'] = true;
             $this->defaultMiddleware = new \Symfony\Config\Framework\Messenger\BusConfig\DefaultMiddlewareConfig($value);
         } elseif (0 < \func_num_args()) {
             throw new InvalidConfigurationException('The node created by "defaultMiddleware()" has already been initialized. You cannot pass values the second time you call defaultMiddleware().');
         }
-    
+
         return $this->defaultMiddleware;
     }
-    
+
     /**
      * @template TValue
      * @param TValue $value
@@ -53,13 +53,13 @@ class BusConfig
         $this->_usedProperties['middleware'] = true;
         if (!\is_array($value)) {
             $this->middleware[] = $value;
-    
+
             return $this;
         }
-    
+
         return $this->middleware[] = new \Symfony\Config\Framework\Messenger\BusConfig\MiddlewareConfig($value);
     }
-    
+
     public function __construct(array $value = [])
     {
         if (array_key_exists('default_middleware', $value)) {
@@ -67,18 +67,18 @@ class BusConfig
             $this->defaultMiddleware = \is_array($value['default_middleware']) ? new \Symfony\Config\Framework\Messenger\BusConfig\DefaultMiddlewareConfig($value['default_middleware']) : $value['default_middleware'];
             unset($value['default_middleware']);
         }
-    
+
         if (array_key_exists('middleware', $value)) {
             $this->_usedProperties['middleware'] = true;
             $this->middleware = array_map(fn ($v) => \is_array($v) ? new \Symfony\Config\Framework\Messenger\BusConfig\MiddlewareConfig($v) : $v, $value['middleware']);
             unset($value['middleware']);
         }
-    
+
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-    
+
     public function toArray(): array
     {
         $output = [];
@@ -88,7 +88,7 @@ class BusConfig
         if (isset($this->_usedProperties['middleware'])) {
             $output['middleware'] = array_map(fn ($v) => $v instanceof \Symfony\Config\Framework\Messenger\BusConfig\MiddlewareConfig ? $v->toArray() : $v, $this->middleware);
         }
-    
+
         return $output;
     }
 

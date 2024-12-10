@@ -20,7 +20,7 @@ class JsonLoginConfig
     private $usernamePath;
     private $passwordPath;
     private $_usedProperties = [];
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -30,10 +30,10 @@ class JsonLoginConfig
     {
         $this->_usedProperties['provider'] = true;
         $this->provider = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default true
      * @param ParamConfigurator|bool $value
@@ -43,10 +43,10 @@ class JsonLoginConfig
     {
         $this->_usedProperties['rememberMe'] = true;
         $this->rememberMe = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -56,10 +56,10 @@ class JsonLoginConfig
     {
         $this->_usedProperties['successHandler'] = true;
         $this->successHandler = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -69,10 +69,10 @@ class JsonLoginConfig
     {
         $this->_usedProperties['failureHandler'] = true;
         $this->failureHandler = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default '/login_check'
      * @param ParamConfigurator|mixed $value
@@ -82,10 +82,10 @@ class JsonLoginConfig
     {
         $this->_usedProperties['checkPath'] = true;
         $this->checkPath = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default false
      * @param ParamConfigurator|bool $value
@@ -95,10 +95,10 @@ class JsonLoginConfig
     {
         $this->_usedProperties['useForward'] = true;
         $this->useForward = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default '/login'
      * @param ParamConfigurator|mixed $value
@@ -108,10 +108,10 @@ class JsonLoginConfig
     {
         $this->_usedProperties['loginPath'] = true;
         $this->loginPath = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default 'username'
      * @param ParamConfigurator|mixed $value
@@ -121,10 +121,10 @@ class JsonLoginConfig
     {
         $this->_usedProperties['usernamePath'] = true;
         $this->usernamePath = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default 'password'
      * @param ParamConfigurator|mixed $value
@@ -134,10 +134,10 @@ class JsonLoginConfig
     {
         $this->_usedProperties['passwordPath'] = true;
         $this->passwordPath = $value;
-    
+
         return $this;
     }
-    
+
     public function __construct(array $value = [])
     {
         if (array_key_exists('provider', $value)) {
@@ -145,60 +145,60 @@ class JsonLoginConfig
             $this->provider = $value['provider'];
             unset($value['provider']);
         }
-    
+
         if (array_key_exists('remember_me', $value)) {
             $this->_usedProperties['rememberMe'] = true;
             $this->rememberMe = $value['remember_me'];
             unset($value['remember_me']);
         }
-    
+
         if (array_key_exists('success_handler', $value)) {
             $this->_usedProperties['successHandler'] = true;
             $this->successHandler = $value['success_handler'];
             unset($value['success_handler']);
         }
-    
+
         if (array_key_exists('failure_handler', $value)) {
             $this->_usedProperties['failureHandler'] = true;
             $this->failureHandler = $value['failure_handler'];
             unset($value['failure_handler']);
         }
-    
+
         if (array_key_exists('check_path', $value)) {
             $this->_usedProperties['checkPath'] = true;
             $this->checkPath = $value['check_path'];
             unset($value['check_path']);
         }
-    
+
         if (array_key_exists('use_forward', $value)) {
             $this->_usedProperties['useForward'] = true;
             $this->useForward = $value['use_forward'];
             unset($value['use_forward']);
         }
-    
+
         if (array_key_exists('login_path', $value)) {
             $this->_usedProperties['loginPath'] = true;
             $this->loginPath = $value['login_path'];
             unset($value['login_path']);
         }
-    
+
         if (array_key_exists('username_path', $value)) {
             $this->_usedProperties['usernamePath'] = true;
             $this->usernamePath = $value['username_path'];
             unset($value['username_path']);
         }
-    
+
         if (array_key_exists('password_path', $value)) {
             $this->_usedProperties['passwordPath'] = true;
             $this->passwordPath = $value['password_path'];
             unset($value['password_path']);
         }
-    
+
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-    
+
     public function toArray(): array
     {
         $output = [];
@@ -229,7 +229,7 @@ class JsonLoginConfig
         if (isset($this->_usedProperties['passwordPath'])) {
             $output['password_path'] = $this->passwordPath;
         }
-    
+
         return $output;
     }
 

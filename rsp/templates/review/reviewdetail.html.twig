@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detail recenze{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Detail recenze</h1>
+
+        {% if review is not null %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Recenze - text</h5>
+                    {{ review.text }}
+                </div>
+            </div>
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                Nelze zobrazit detail, recenze neexistuje.
+            </div>
+        {% endif %}
+        <a href="{{path('app_review_show_list', {id: review.submission.id})}}" class="btn btn-secondary mt-2">Zpět na seznam recenzí</a>
+    </div>
+{% endblock %}

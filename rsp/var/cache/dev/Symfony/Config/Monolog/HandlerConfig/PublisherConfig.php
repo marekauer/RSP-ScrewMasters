@@ -15,7 +15,7 @@ class PublisherConfig
     private $port;
     private $chunkSize;
     private $_usedProperties = [];
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -25,10 +25,10 @@ class PublisherConfig
     {
         $this->_usedProperties['id'] = true;
         $this->id = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -38,10 +38,10 @@ class PublisherConfig
     {
         $this->_usedProperties['hostname'] = true;
         $this->hostname = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default 12201
      * @param ParamConfigurator|mixed $value
@@ -51,10 +51,10 @@ class PublisherConfig
     {
         $this->_usedProperties['port'] = true;
         $this->port = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default 1420
      * @param ParamConfigurator|mixed $value
@@ -64,10 +64,10 @@ class PublisherConfig
     {
         $this->_usedProperties['chunkSize'] = true;
         $this->chunkSize = $value;
-    
+
         return $this;
     }
-    
+
     public function __construct(array $value = [])
     {
         if (array_key_exists('id', $value)) {
@@ -75,30 +75,30 @@ class PublisherConfig
             $this->id = $value['id'];
             unset($value['id']);
         }
-    
+
         if (array_key_exists('hostname', $value)) {
             $this->_usedProperties['hostname'] = true;
             $this->hostname = $value['hostname'];
             unset($value['hostname']);
         }
-    
+
         if (array_key_exists('port', $value)) {
             $this->_usedProperties['port'] = true;
             $this->port = $value['port'];
             unset($value['port']);
         }
-    
+
         if (array_key_exists('chunk_size', $value)) {
             $this->_usedProperties['chunkSize'] = true;
             $this->chunkSize = $value['chunk_size'];
             unset($value['chunk_size']);
         }
-    
+
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-    
+
     public function toArray(): array
     {
         $output = [];
@@ -114,7 +114,7 @@ class PublisherConfig
         if (isset($this->_usedProperties['chunkSize'])) {
             $output['chunk_size'] = $this->chunkSize;
         }
-    
+
         return $output;
     }
 

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}TechMind{% endblock %}
+{% block title %}Techmind{% endblock %}
 
 {% block body %}
 <div class="container my-5">
@@ -18,7 +18,19 @@
                     </h1>
                     <p class="text-muted mb-3">
                         {% if lastPublicatedSubmission %}
-                            Autor: <strong>{{ lastPublicatedSubmission.email }}</strong> | {{ lastPublicatedSubmission.publicatedAt|date('d.m.Y', 'Europe/Prague') }}
+                        <div class="container my-4">
+                            <div class="row g-3">
+                                <div class="ml-2">
+                                    <div>Publikace: <strong>{{ lastPublicatedSubmission.publicationName }}</strong></div>      
+                                </div>&nbsp;| 
+                                <div class="ml-2">
+                                    <div>Kategorie Publikace: <strong>{{ lastPublicatedSubmission.publicationCategoryName }}</strong></div>      
+                                </div>&nbsp;| 
+                                <div class="ml-2">
+                                    <div>Autor: <strong>{{ lastPublicatedSubmission.email }}</strong>,{{ lastPublicatedSubmission.publicatedAt|date('d.m.Y', 'Europe/Prague') }}</div>      
+                                </div>
+                            </div>
+                        </div>
                         {% else %}
                             Autor: <strong>John Doe</strong> | November 15, 2024
                         {% endif %}

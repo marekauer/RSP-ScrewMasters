@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container mt-4 d-flex justify-content-center">
+    <div class="card shadow-sm p-4" style="width: 100%; max-width: 650px;">
+        <h2 class="text-center mb-4">Vytvořit recenzi</h2>
+
+        {{ form_start(reviewForm) }}
+
+        <div class="mb-3">
+            {{ form_row(reviewForm.timeliness, { 'label': 'Včasnost' }) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(reviewForm.interest, { 'label': 'Zajímavost' }) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(reviewForm.usefulness, { 'label': 'Užitečnost' }) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(reviewForm.originality, { 'label': 'Originalita' }) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(reviewForm.professionalLevel, { 'label': 'Odborná úroveň' }) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(reviewForm.languageLevel, { 'label': 'Jazyková úroveň' }) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(reviewForm.stylisticLevel, { 'label': 'Stylová úroveň' }) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(reviewForm.evaluation, { 'label': 'Hodnocení' }) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(reviewForm.createdAt, { 'label': 'Datum vytvoření' }) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(reviewForm.reviewer, { 'label': 'Recenzent' }) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(reviewForm.submission, { 'label': 'Příspěvek' }) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(reviewForm.text, { 'attr': {'class': 'form-control'}, 'label': 'Text recenze' }) }}
+        </div>
+
+        <div class="text-center mt-4">
+            <button class="btn btn-primary px-4">Odeslat</button>
+        </div>
+
+        {{ form_end(reviewForm) }}
+    </div>
+</div>
+
+{% endblock %}

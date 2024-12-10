@@ -10,18 +10,21 @@ use App\Entity\Submission;
 use App\Entity\SubmitedFile;
 use App\Form\PublicatedSubmissionType;
 use App\Form\PublicationType;
+use App\Form\RejectSubmissionType;
 use App\Form\SendSubmissionToReviewersType;
 use App\Form\SubmitFileType;
 use App\Repository\AuthorRepository;
 use App\Repository\SubmissionRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Pagerfanta\Pagerfanta;
 
 class DashboardController extends AbstractController
 {
@@ -170,6 +173,33 @@ class DashboardController extends AbstractController
     }
 
     private function HandleEditor(Request $request) {
+        $rejectSubmissionForm = $this->createForm(RejectSubmissionType::class);
+        $rejectSubmissionForm->handleRequest($request);
+       
+        // zamítnutí 
+        if ($rejectSubmissionForm->isSubmitted() && $rejectSubmissionForm->isValid()) {
+            $status = $rejectSubmissionForm->get('status')->getData();
+            $submissionId = $rejectSubmissionForm->get('submission_id')->getData();
+
+            if (!is_null($submissionId)) {
+                $submission = $this->submissionRepository->find($submissionId);
+        
+                if ($submission) {
+                    $submission->setStatus($status);
+                    $this->entityManager->persist($submission);
+                    $this->entityManager->flush();
+        
+                    $this->addFlash('success', 'Status článku byl změněn.');
+                } else {
+                    $this->addFlash('error', 'Příspěvek nebyl nalezen.');
+                }
+            } else {
+                $this->addFlash('error', 'Příspěvek nebyl nalezen.');
+            }
+    
+            return $this->redirectToRoute('app_dashboard');
+        }
+
         $publicatedSubmission = new PublicatedSubmission();
         $publicatedSubmissionform = $this->createForm(PublicatedSubmissionType::class, $publicatedSubmission);
         $publicatedSubmissionform->handleRequest($request);
@@ -240,23 +270,46 @@ class DashboardController extends AbstractController
             return $this->redirectToRoute('app_dashboard');
         }
 
-        $submissions = $this->submissionRepository->findAllForPublication();
+        $queryBuilder = $this->submissionRepository->findAllForPublicationQueryBuilder();
+        $adapter = new QueryAdapter($queryBuilder);
+        $pagerfanta = new Pagerfanta($adapter);
+
+        $pagerfanta->setMaxPerPage(1);
+        $pagerfanta->setCurrentPage($request->query->getInt('page', 1));
+
+        if ($request->isMethod('POST') && $request->request->get('rejection_form')) {
+            $submissionId = $request->request->get('submission_id');
+            $submission = $this->submissionRepository->find($submissionId);
+    
+            if ($submission) {
+                $this->entityManager->persist($submission);
+                $this->entityManager->flush();
+                $this->addFlash('success', 'Článek byl vrácen autorovi.');
+            } else {
+                $this->addFlash('error', 'Článek nebyl nalezen.');
+            }
+        }
 
         return $this->render('dashboard/index.html.twig', [
-            'submissions' => $submissions,
+            'pager' => $pagerfanta,
             'publicatedSubmissionForm' => $publicatedSubmissionform,
-            'sendSubmissionToReviewersForm' => $sendSubmissionToReviewersForm
+            'sendSubmissionToReviewersForm' => $sendSubmissionToReviewersForm,
+            'rejectSubmissionForm' => $rejectSubmissionForm
         ]);   
     }
 
     private function HandleEditorChief(Request $request) {
-        $submissions = $this->submissionRepository->findAll();
+        $queryBuilder = $this->submissionRepository->createQueryBuilder('s')->orderBy('s.createdAt', 'DESC');
+        $adapter = new QueryAdapter($queryBuilder);
+        $pagerfanta = new Pagerfanta($adapter);
+
+        $pagerfanta->setMaxPerPage(3);
+        $pagerfanta->setCurrentPage($request->query->getInt('page', 1));
 
         $publication = new Publication();
         $createPublicationform = $this->createForm(PublicationType::class, $publication);
         $createPublicationform->handleRequest($request);
 
-        // vytvoření publikace
         if ($createPublicationform->isSubmitted() && $createPublicationform->isValid()) {
             $publication->setCreatedAt(new \DateTimeImmutable());
             $this->entityManager->persist($publication);
@@ -267,9 +320,9 @@ class DashboardController extends AbstractController
         }
 
         return $this->render('dashboard/index.html.twig', [
-            'submissions' => $submissions,
-            'createPublicationForm' => $createPublicationform
-        ]);   
+            'pager' => $pagerfanta,
+            'createPublicationForm' => $createPublicationform->createView(),
+        ]);
     }
 
 }

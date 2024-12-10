@@ -22,7 +22,7 @@ class OrmConfig
     private $entityManagers;
     private $resolveTargetEntities;
     private $_usedProperties = [];
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -32,10 +32,10 @@ class OrmConfig
     {
         $this->_usedProperties['defaultEntityManager'] = true;
         $this->defaultEntityManager = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * Auto generate mode possible values are: "NEVER", "ALWAYS", "FILE_NOT_EXISTS", "EVAL", "FILE_NOT_EXISTS_OR_CHANGED"
      * @default false
@@ -46,10 +46,10 @@ class OrmConfig
     {
         $this->_usedProperties['autoGenerateProxyClasses'] = true;
         $this->autoGenerateProxyClasses = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * Enables the new implementation of proxies based on lazy ghosts instead of using the legacy implementation
      * @default true
@@ -60,10 +60,10 @@ class OrmConfig
     {
         $this->_usedProperties['enableLazyGhostObjects'] = true;
         $this->enableLazyGhostObjects = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default '%kernel.cache_dir%/doctrine/orm/Proxies'
      * @param ParamConfigurator|mixed $value
@@ -73,10 +73,10 @@ class OrmConfig
     {
         $this->_usedProperties['proxyDir'] = true;
         $this->proxyDir = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default 'Proxies'
      * @param ParamConfigurator|mixed $value
@@ -86,10 +86,10 @@ class OrmConfig
     {
         $this->_usedProperties['proxyNamespace'] = true;
         $this->proxyNamespace = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default {"enabled":true,"auto_mapping":null,"evict_cache":false}
     */
@@ -101,10 +101,10 @@ class OrmConfig
         } elseif (0 < \func_num_args()) {
             throw new InvalidConfigurationException('The node created by "controllerResolver()" has already been initialized. You cannot pass values the second time you call controllerResolver().');
         }
-    
+
         return $this->controllerResolver;
     }
-    
+
     public function entityManager(string $name, array $value = []): \Symfony\Config\Doctrine\Orm\EntityManagerConfig
     {
         if (!isset($this->entityManagers[$name])) {
@@ -113,10 +113,10 @@ class OrmConfig
         } elseif (1 < \func_num_args()) {
             throw new InvalidConfigurationException('The node created by "entityManager()" has already been initialized. You cannot pass values the second time you call entityManager().');
         }
-    
+
         return $this->entityManagers[$name];
     }
-    
+
     /**
      * @return $this
      */
@@ -124,10 +124,10 @@ class OrmConfig
     {
         $this->_usedProperties['resolveTargetEntities'] = true;
         $this->resolveTargetEntities[$interface] = $value;
-    
+
         return $this;
     }
-    
+
     public function __construct(array $value = [])
     {
         if (array_key_exists('default_entity_manager', $value)) {
@@ -135,54 +135,54 @@ class OrmConfig
             $this->defaultEntityManager = $value['default_entity_manager'];
             unset($value['default_entity_manager']);
         }
-    
+
         if (array_key_exists('auto_generate_proxy_classes', $value)) {
             $this->_usedProperties['autoGenerateProxyClasses'] = true;
             $this->autoGenerateProxyClasses = $value['auto_generate_proxy_classes'];
             unset($value['auto_generate_proxy_classes']);
         }
-    
+
         if (array_key_exists('enable_lazy_ghost_objects', $value)) {
             $this->_usedProperties['enableLazyGhostObjects'] = true;
             $this->enableLazyGhostObjects = $value['enable_lazy_ghost_objects'];
             unset($value['enable_lazy_ghost_objects']);
         }
-    
+
         if (array_key_exists('proxy_dir', $value)) {
             $this->_usedProperties['proxyDir'] = true;
             $this->proxyDir = $value['proxy_dir'];
             unset($value['proxy_dir']);
         }
-    
+
         if (array_key_exists('proxy_namespace', $value)) {
             $this->_usedProperties['proxyNamespace'] = true;
             $this->proxyNamespace = $value['proxy_namespace'];
             unset($value['proxy_namespace']);
         }
-    
+
         if (array_key_exists('controller_resolver', $value)) {
             $this->_usedProperties['controllerResolver'] = true;
             $this->controllerResolver = new \Symfony\Config\Doctrine\Orm\ControllerResolverConfig($value['controller_resolver']);
             unset($value['controller_resolver']);
         }
-    
+
         if (array_key_exists('entity_managers', $value)) {
             $this->_usedProperties['entityManagers'] = true;
             $this->entityManagers = array_map(fn ($v) => new \Symfony\Config\Doctrine\Orm\EntityManagerConfig($v), $value['entity_managers']);
             unset($value['entity_managers']);
         }
-    
+
         if (array_key_exists('resolve_target_entities', $value)) {
             $this->_usedProperties['resolveTargetEntities'] = true;
             $this->resolveTargetEntities = $value['resolve_target_entities'];
             unset($value['resolve_target_entities']);
         }
-    
+
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-    
+
     public function toArray(): array
     {
         $output = [];
@@ -210,7 +210,7 @@ class OrmConfig
         if (isset($this->_usedProperties['resolveTargetEntities'])) {
             $output['resolve_target_entities'] = $this->resolveTargetEntities;
         }
-    
+
         return $output;
     }
 

@@ -5,7 +5,7 @@
     <h2 class="ml-3">Seznam článků</h2>
     <div class="container mt-2">
         <div class="list-group mt-2 shadow-sm">
-            {% for psub in psubs %}
+            {% for psub in pager.currentPageResults %}
                 <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-start">
                     <div class="ms-2 me-auto">
                         <h5 class="fw-bold text-primary">{{ psub.name }}</h5>
@@ -22,9 +22,32 @@
             {% endfor %}
         </div>
     </div>
-
-    <nav aria-label="Pagination" class="mt-4">
-        {# @TODO DODĚLAT #}
-    </nav>
+    <!-- PAGINACE -->
+    <div class="pagination d-flex justify-content-center mt-3">
+        {% if pager.hasPreviousPage %}
+            <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all | merge({'page': pager.previousPage})) }}" class="btn btn-primary mx-1">
+                Předchozí
+            </a>
+        {% else %}
+            <button class="btn btn-secondary mx-1" disabled>
+                Předchozí
+            </button>
+        {% endif %}
+    
+        <span class="btn btn-outline-primary mx-1">
+            Stránka {{ pager.currentPage }} z {{ pager.nbPages }}
+        </span>
+    
+        {% if pager.hasNextPage %}
+            <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all | merge({'page': pager.nextPage})) }}" class="btn btn-primary mx-1">
+                Další
+            </a>
+        {% else %}
+            <button class="btn btn-secondary mx-1" disabled>
+                Další
+            </button>
+        {% endif %}
+    </div>
+    <!-- END PAGINACE -->
 </div>
 {% endblock %}

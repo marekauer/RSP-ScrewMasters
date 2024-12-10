@@ -14,7 +14,7 @@ class DateConfig
     private $intervalFormat;
     private $timezone;
     private $_usedProperties = [];
-    
+
     /**
      * @default 'F j, Y H:i'
      * @param ParamConfigurator|mixed $value
@@ -24,10 +24,10 @@ class DateConfig
     {
         $this->_usedProperties['format'] = true;
         $this->format = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default '%d days'
      * @param ParamConfigurator|mixed $value
@@ -37,10 +37,10 @@ class DateConfig
     {
         $this->_usedProperties['intervalFormat'] = true;
         $this->intervalFormat = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * The timezone used when formatting dates, when set to null, the timezone returned by date_default_timezone_get() is used
      * @default null
@@ -51,10 +51,10 @@ class DateConfig
     {
         $this->_usedProperties['timezone'] = true;
         $this->timezone = $value;
-    
+
         return $this;
     }
-    
+
     public function __construct(array $value = [])
     {
         if (array_key_exists('format', $value)) {
@@ -62,24 +62,24 @@ class DateConfig
             $this->format = $value['format'];
             unset($value['format']);
         }
-    
+
         if (array_key_exists('interval_format', $value)) {
             $this->_usedProperties['intervalFormat'] = true;
             $this->intervalFormat = $value['interval_format'];
             unset($value['interval_format']);
         }
-    
+
         if (array_key_exists('timezone', $value)) {
             $this->_usedProperties['timezone'] = true;
             $this->timezone = $value['timezone'];
             unset($value['timezone']);
         }
-    
+
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-    
+
     public function toArray(): array
     {
         $output = [];
@@ -92,7 +92,7 @@ class DateConfig
         if (isset($this->_usedProperties['timezone'])) {
             $output['timezone'] = $this->timezone;
         }
-    
+
         return $output;
     }
 

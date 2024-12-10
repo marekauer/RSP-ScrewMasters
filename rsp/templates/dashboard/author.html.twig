@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div>
-                    {% if submission.status != 2 %}
+                    {% if submission.status == -1 or submission.status == -2 %}
                     <form method="post" action="{{ path('app_dashboard') }}" enctype="multipart/form-data" class="mt-2">
                         <input type="hidden" name="submission_id" value="{{ submission.id }}">
                         <input type="hidden" name="form_type" value="update_submitfile">
@@ -36,14 +36,17 @@
                     {% endif %}
                     {% if submission.submitedFiles is not empty %}
                         {% set filePaths = [] %}
+                        {% set fileDates = [] %}
+                        
                         {% for file in submission.submitedFiles %}
-                        {% set filePaths = filePaths|merge([file.filename]) %}
+                            {% set filePaths = filePaths|merge([file.filename]) %}
+                            {% set fileDates = fileDates|merge([file.createdAt|date("c")]) %}
                         {% endfor %}
 
                         <button 
                             type="button" 
                             class="btn btn-link" 
-                            onclick="showFiles('{{ submission.name }}', {{ filePaths|json_encode(constant('JSON_PRETTY_PRINT')) }})"
+                            onclick="showFiles('{{ submission.name }}', {{ filePaths|json_encode(constant('JSON_PRETTY_PRINT')) }}, {{ fileDates|json_encode(constant('JSON_PRETTY_PRINT')) }})"
                             data-bs-toggle="modal" 
                             data-bs-target="#fileModal">
                             Nahrané soubory
@@ -55,23 +58,6 @@
             </li>
         {% endfor %}
     </ul>
-
-    <!-- Modální okno pro nahrané soubory -->
-    <div class="modal fade" id="fileModal" tabindex="-1" aria-labelledby="fileModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="fileModalLabel">Nahrané soubory</h5>
-                </div>
-                <div class="modal-body">
-                    <ul id="fileLinks" class="list-unstyled"></ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">zavřít</button>
-                </div>
-            </div>
-        </div>
-    </div>
     
     <h2 class="mt-2">Nahrajte článek</h2>
     {{ form_start(form, { 'attr': { 'enctype': 'multipart/form-data', 'class': 'needs-validation', 'novalidate': 'novalidate' } }) }}
@@ -98,44 +84,4 @@
     {{ form_end(form) }}    
 </div>
 
-<script>
-function showFiles(submissionName, filePaths) {
-    document.getElementById('fileModalLabel').innerText = 'Nahrané soubory pro: ' + submissionName;
-
-    const fileLinksElement = document.getElementById('fileLinks');
-    fileLinksElement.innerHTML = '';
-    const basePath = '/uploads/'; 
-
-    filePaths.forEach(function(filePath) {
-        const listItem = document.createElement('li');
-        listItem.classList.add('mb-2');
-
-        const fileLink = document.createElement('a');
-        fileLink.href = basePath + filePath;
-        fileLink.target = '_blank';
-        fileLink.classList.add('btn', 'btn-link'); 
-        fileLink.innerText = filePath.split('_')[0];
-
-        listItem.appendChild(fileLink);
-        fileLinksElement.appendChild(listItem);
-    });
-
-    const modal = new bootstrap.Modal(document.getElementById('fileModal'));
-    modal.show();
-
-    document.getElementById('fileModal').addEventListener('hidden.bs.modal', function () {
-        const backdrop = document.querySelector('.modal-backdrop');
-        if (backdrop) {
-            backdrop.remove();
-        }
-    });
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    var tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-    var tooltipList = [...tooltipTriggerList].map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
-});
-</script>
 {% endblock %}

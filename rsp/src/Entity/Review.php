@@ -49,6 +49,8 @@ class Review
     #[ORM\JoinColumn(nullable: false)]
     private ?Submission $submission = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $text = null;
 
     public function getId(): ?int
     {
@@ -183,6 +185,18 @@ class Review
     public function setSubmission(?Submission $submission): static
     {
         $this->submission = $submission;
+
+        return $this;
+    }
+
+    public function getText(): ?string
+    {
+        return $this->text;
+    }
+
+    public function setText(?string $text): static
+    {
+        $this->text = $text;
 
         return $this;
     }

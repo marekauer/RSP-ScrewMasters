@@ -41,7 +41,7 @@ class SlaveConfig
     private $instancename;
     private $connectstring;
     private $_usedProperties = [];
-    
+
     /**
      * A URL with connection information; any parameter value parsed from this string will override explicitly set parameters
      * @default null
@@ -52,10 +52,10 @@ class SlaveConfig
     {
         $this->_usedProperties['url'] = true;
         $this->url = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -65,10 +65,10 @@ class SlaveConfig
     {
         $this->_usedProperties['dbname'] = true;
         $this->dbname = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * Defaults to "localhost" at runtime.
      * @default null
@@ -79,10 +79,10 @@ class SlaveConfig
     {
         $this->_usedProperties['host'] = true;
         $this->host = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * Defaults to null at runtime.
      * @default null
@@ -93,10 +93,10 @@ class SlaveConfig
     {
         $this->_usedProperties['port'] = true;
         $this->port = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * Defaults to "root" at runtime.
      * @default null
@@ -107,10 +107,10 @@ class SlaveConfig
     {
         $this->_usedProperties['user'] = true;
         $this->user = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * Defaults to null at runtime.
      * @default null
@@ -121,10 +121,10 @@ class SlaveConfig
     {
         $this->_usedProperties['password'] = true;
         $this->password = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default null
      * @param ParamConfigurator|bool $value
@@ -135,10 +135,10 @@ class SlaveConfig
     {
         $this->_usedProperties['overrideUrl'] = true;
         $this->overrideUrl = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -148,10 +148,10 @@ class SlaveConfig
     {
         $this->_usedProperties['dbnameSuffix'] = true;
         $this->dbnameSuffix = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -161,10 +161,10 @@ class SlaveConfig
     {
         $this->_usedProperties['applicationName'] = true;
         $this->applicationName = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -174,10 +174,10 @@ class SlaveConfig
     {
         $this->_usedProperties['charset'] = true;
         $this->charset = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -187,10 +187,10 @@ class SlaveConfig
     {
         $this->_usedProperties['path'] = true;
         $this->path = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default null
      * @param ParamConfigurator|bool $value
@@ -200,10 +200,10 @@ class SlaveConfig
     {
         $this->_usedProperties['memory'] = true;
         $this->memory = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * The unix socket to use for MySQL
      * @default null
@@ -214,10 +214,10 @@ class SlaveConfig
     {
         $this->_usedProperties['unixSocket'] = true;
         $this->unixSocket = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * True to use as persistent connection for the ibm_db2 driver
      * @default null
@@ -228,10 +228,10 @@ class SlaveConfig
     {
         $this->_usedProperties['persistent'] = true;
         $this->persistent = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * The protocol to use for the ibm_db2 driver (default to TCPIP if omitted)
      * @default null
@@ -242,10 +242,10 @@ class SlaveConfig
     {
         $this->_usedProperties['protocol'] = true;
         $this->protocol = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * True to use SERVICE_NAME as connection parameter instead of SID for Oracle
      * @default null
@@ -256,10 +256,10 @@ class SlaveConfig
     {
         $this->_usedProperties['service'] = true;
         $this->service = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * Overrules dbname parameter if given and used as SERVICE_NAME or SID connection parameter for Oracle depending on the service parameter.
      * @default null
@@ -270,10 +270,10 @@ class SlaveConfig
     {
         $this->_usedProperties['servicename'] = true;
         $this->servicename = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * The session mode to use for the oci8 driver
      * @default null
@@ -284,10 +284,10 @@ class SlaveConfig
     {
         $this->_usedProperties['sessionMode'] = true;
         $this->sessionMode = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * The name of a running database server to connect to for SQL Anywhere.
      * @default null
@@ -298,10 +298,10 @@ class SlaveConfig
     {
         $this->_usedProperties['server'] = true;
         $this->server = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * Override the default database (postgres) to connect to for PostgreSQL connexion.
      * @default null
@@ -312,10 +312,10 @@ class SlaveConfig
     {
         $this->_usedProperties['defaultDbname'] = true;
         $this->defaultDbname = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * Determines whether or with what priority a SSL TCP/IP connection will be negotiated with the server for PostgreSQL.
      * @default null
@@ -326,10 +326,10 @@ class SlaveConfig
     {
         $this->_usedProperties['sslmode'] = true;
         $this->sslmode = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * The name of a file containing SSL certificate authority (CA) certificate(s). If the file exists, the server's certificate will be verified to be signed by one of these authorities.
      * @default null
@@ -340,10 +340,10 @@ class SlaveConfig
     {
         $this->_usedProperties['sslrootcert'] = true;
         $this->sslrootcert = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * The path to the SSL client certificate file for PostgreSQL.
      * @default null
@@ -354,10 +354,10 @@ class SlaveConfig
     {
         $this->_usedProperties['sslcert'] = true;
         $this->sslcert = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * The path to the SSL client key file for PostgreSQL.
      * @default null
@@ -368,10 +368,10 @@ class SlaveConfig
     {
         $this->_usedProperties['sslkey'] = true;
         $this->sslkey = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * The file name of the SSL certificate revocation list for PostgreSQL.
      * @default null
@@ -382,10 +382,10 @@ class SlaveConfig
     {
         $this->_usedProperties['sslcrl'] = true;
         $this->sslcrl = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * True to use a pooled server with the oci8/pdo_oracle driver
      * @default null
@@ -396,10 +396,10 @@ class SlaveConfig
     {
         $this->_usedProperties['pooled'] = true;
         $this->pooled = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * Configuring MultipleActiveResultSets for the pdo_sqlsrv driver
      * @default null
@@ -410,10 +410,10 @@ class SlaveConfig
     {
         $this->_usedProperties['multipleActiveResultSets'] = true;
         $this->multipleActiveResultSets = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * Use savepoints for nested transactions
      * @default null
@@ -424,10 +424,10 @@ class SlaveConfig
     {
         $this->_usedProperties['useSavepoints'] = true;
         $this->useSavepoints = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * Optional parameter, complete whether to add the INSTANCE_NAME parameter in the connection. It is generally used to connect to an Oracle RAC server to select the name of a particular instance.
      * @default null
@@ -438,10 +438,10 @@ class SlaveConfig
     {
         $this->_usedProperties['instancename'] = true;
         $this->instancename = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * Complete Easy Connect connection descriptor, see https://docs.oracle.com/database/121/NETAG/naming.htm.When using this option, you will still need to provide the user and password parameters, but the other parameters will no longer be used. Note that when using this parameter, the getHost and getPort methods from Doctrine\DBAL\Connection will no longer function as expected.
      * @default null
@@ -452,10 +452,10 @@ class SlaveConfig
     {
         $this->_usedProperties['connectstring'] = true;
         $this->connectstring = $value;
-    
+
         return $this;
     }
-    
+
     public function __construct(array $value = [])
     {
         if (array_key_exists('url', $value)) {
@@ -463,186 +463,186 @@ class SlaveConfig
             $this->url = $value['url'];
             unset($value['url']);
         }
-    
+
         if (array_key_exists('dbname', $value)) {
             $this->_usedProperties['dbname'] = true;
             $this->dbname = $value['dbname'];
             unset($value['dbname']);
         }
-    
+
         if (array_key_exists('host', $value)) {
             $this->_usedProperties['host'] = true;
             $this->host = $value['host'];
             unset($value['host']);
         }
-    
+
         if (array_key_exists('port', $value)) {
             $this->_usedProperties['port'] = true;
             $this->port = $value['port'];
             unset($value['port']);
         }
-    
+
         if (array_key_exists('user', $value)) {
             $this->_usedProperties['user'] = true;
             $this->user = $value['user'];
             unset($value['user']);
         }
-    
+
         if (array_key_exists('password', $value)) {
             $this->_usedProperties['password'] = true;
             $this->password = $value['password'];
             unset($value['password']);
         }
-    
+
         if (array_key_exists('override_url', $value)) {
             $this->_usedProperties['overrideUrl'] = true;
             $this->overrideUrl = $value['override_url'];
             unset($value['override_url']);
         }
-    
+
         if (array_key_exists('dbname_suffix', $value)) {
             $this->_usedProperties['dbnameSuffix'] = true;
             $this->dbnameSuffix = $value['dbname_suffix'];
             unset($value['dbname_suffix']);
         }
-    
+
         if (array_key_exists('application_name', $value)) {
             $this->_usedProperties['applicationName'] = true;
             $this->applicationName = $value['application_name'];
             unset($value['application_name']);
         }
-    
+
         if (array_key_exists('charset', $value)) {
             $this->_usedProperties['charset'] = true;
             $this->charset = $value['charset'];
             unset($value['charset']);
         }
-    
+
         if (array_key_exists('path', $value)) {
             $this->_usedProperties['path'] = true;
             $this->path = $value['path'];
             unset($value['path']);
         }
-    
+
         if (array_key_exists('memory', $value)) {
             $this->_usedProperties['memory'] = true;
             $this->memory = $value['memory'];
             unset($value['memory']);
         }
-    
+
         if (array_key_exists('unix_socket', $value)) {
             $this->_usedProperties['unixSocket'] = true;
             $this->unixSocket = $value['unix_socket'];
             unset($value['unix_socket']);
         }
-    
+
         if (array_key_exists('persistent', $value)) {
             $this->_usedProperties['persistent'] = true;
             $this->persistent = $value['persistent'];
             unset($value['persistent']);
         }
-    
+
         if (array_key_exists('protocol', $value)) {
             $this->_usedProperties['protocol'] = true;
             $this->protocol = $value['protocol'];
             unset($value['protocol']);
         }
-    
+
         if (array_key_exists('service', $value)) {
             $this->_usedProperties['service'] = true;
             $this->service = $value['service'];
             unset($value['service']);
         }
-    
+
         if (array_key_exists('servicename', $value)) {
             $this->_usedProperties['servicename'] = true;
             $this->servicename = $value['servicename'];
             unset($value['servicename']);
         }
-    
+
         if (array_key_exists('sessionMode', $value)) {
             $this->_usedProperties['sessionMode'] = true;
             $this->sessionMode = $value['sessionMode'];
             unset($value['sessionMode']);
         }
-    
+
         if (array_key_exists('server', $value)) {
             $this->_usedProperties['server'] = true;
             $this->server = $value['server'];
             unset($value['server']);
         }
-    
+
         if (array_key_exists('default_dbname', $value)) {
             $this->_usedProperties['defaultDbname'] = true;
             $this->defaultDbname = $value['default_dbname'];
             unset($value['default_dbname']);
         }
-    
+
         if (array_key_exists('sslmode', $value)) {
             $this->_usedProperties['sslmode'] = true;
             $this->sslmode = $value['sslmode'];
             unset($value['sslmode']);
         }
-    
+
         if (array_key_exists('sslrootcert', $value)) {
             $this->_usedProperties['sslrootcert'] = true;
             $this->sslrootcert = $value['sslrootcert'];
             unset($value['sslrootcert']);
         }
-    
+
         if (array_key_exists('sslcert', $value)) {
             $this->_usedProperties['sslcert'] = true;
             $this->sslcert = $value['sslcert'];
             unset($value['sslcert']);
         }
-    
+
         if (array_key_exists('sslkey', $value)) {
             $this->_usedProperties['sslkey'] = true;
             $this->sslkey = $value['sslkey'];
             unset($value['sslkey']);
         }
-    
+
         if (array_key_exists('sslcrl', $value)) {
             $this->_usedProperties['sslcrl'] = true;
             $this->sslcrl = $value['sslcrl'];
             unset($value['sslcrl']);
         }
-    
+
         if (array_key_exists('pooled', $value)) {
             $this->_usedProperties['pooled'] = true;
             $this->pooled = $value['pooled'];
             unset($value['pooled']);
         }
-    
+
         if (array_key_exists('MultipleActiveResultSets', $value)) {
             $this->_usedProperties['multipleActiveResultSets'] = true;
             $this->multipleActiveResultSets = $value['MultipleActiveResultSets'];
             unset($value['MultipleActiveResultSets']);
         }
-    
+
         if (array_key_exists('use_savepoints', $value)) {
             $this->_usedProperties['useSavepoints'] = true;
             $this->useSavepoints = $value['use_savepoints'];
             unset($value['use_savepoints']);
         }
-    
+
         if (array_key_exists('instancename', $value)) {
             $this->_usedProperties['instancename'] = true;
             $this->instancename = $value['instancename'];
             unset($value['instancename']);
         }
-    
+
         if (array_key_exists('connectstring', $value)) {
             $this->_usedProperties['connectstring'] = true;
             $this->connectstring = $value['connectstring'];
             unset($value['connectstring']);
         }
-    
+
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-    
+
     public function toArray(): array
     {
         $output = [];
@@ -736,7 +736,7 @@ class SlaveConfig
         if (isset($this->_usedProperties['connectstring'])) {
             $output['connectstring'] = $this->connectstring;
         }
-    
+
         return $output;
     }
 

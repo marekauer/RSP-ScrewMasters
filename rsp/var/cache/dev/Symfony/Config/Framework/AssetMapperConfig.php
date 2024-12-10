@@ -23,7 +23,7 @@ class AssetMapperConfig
     private $importmapScriptAttributes;
     private $vendorDir;
     private $_usedProperties = [];
-    
+
     /**
      * @default true
      * @param ParamConfigurator|bool $value
@@ -33,10 +33,10 @@ class AssetMapperConfig
     {
         $this->_usedProperties['enabled'] = true;
         $this->enabled = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @return $this
      */
@@ -44,10 +44,10 @@ class AssetMapperConfig
     {
         $this->_usedProperties['paths'] = true;
         $this->paths[$namespace] = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @param ParamConfigurator|list<ParamConfigurator|mixed> $value
      *
@@ -57,10 +57,10 @@ class AssetMapperConfig
     {
         $this->_usedProperties['excludedPatterns'] = true;
         $this->excludedPatterns = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * If true, any files starting with "." will be excluded from the asset mapper
      * @default true
@@ -71,10 +71,10 @@ class AssetMapperConfig
     {
         $this->_usedProperties['excludeDotfiles'] = true;
         $this->excludeDotfiles = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * If true, a "dev server" will return the assets from the public directory (true in "debug" mode only by default)
      * @default true
@@ -85,10 +85,10 @@ class AssetMapperConfig
     {
         $this->_usedProperties['server'] = true;
         $this->server = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * The public path where the assets will be written to (and served from when "server" is true)
      * @default '/assets/'
@@ -99,10 +99,10 @@ class AssetMapperConfig
     {
         $this->_usedProperties['publicPrefix'] = true;
         $this->publicPrefix = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * Behavior if an asset cannot be found when imported from JavaScript or CSS files - e.g. "import './non-existent.js'". "strict" means an exception is thrown, "warn" means a warning is logged, "ignore" means the import is left as-is.
      * @default 'warn'
@@ -113,10 +113,10 @@ class AssetMapperConfig
     {
         $this->_usedProperties['missingImportMode'] = true;
         $this->missingImportMode = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @return $this
      */
@@ -124,10 +124,10 @@ class AssetMapperConfig
     {
         $this->_usedProperties['extensions'] = true;
         $this->extensions[$extension] = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * The path of the importmap.php file.
      * @default '%kernel.project_dir%/importmap.php'
@@ -138,10 +138,10 @@ class AssetMapperConfig
     {
         $this->_usedProperties['importmapPath'] = true;
         $this->importmapPath = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * The importmap name that will be used to load the polyfill. Set to false to disable.
      * @default 'es-module-shims'
@@ -152,10 +152,10 @@ class AssetMapperConfig
     {
         $this->_usedProperties['importmapPolyfill'] = true;
         $this->importmapPolyfill = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @return $this
      */
@@ -163,10 +163,10 @@ class AssetMapperConfig
     {
         $this->_usedProperties['importmapScriptAttributes'] = true;
         $this->importmapScriptAttributes[$key] = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * The directory to store JavaScript vendors.
      * @default '%kernel.project_dir%/assets/vendor'
@@ -177,10 +177,10 @@ class AssetMapperConfig
     {
         $this->_usedProperties['vendorDir'] = true;
         $this->vendorDir = $value;
-    
+
         return $this;
     }
-    
+
     public function __construct(array $value = [])
     {
         if (array_key_exists('enabled', $value)) {
@@ -188,78 +188,78 @@ class AssetMapperConfig
             $this->enabled = $value['enabled'];
             unset($value['enabled']);
         }
-    
+
         if (array_key_exists('paths', $value)) {
             $this->_usedProperties['paths'] = true;
             $this->paths = $value['paths'];
             unset($value['paths']);
         }
-    
+
         if (array_key_exists('excluded_patterns', $value)) {
             $this->_usedProperties['excludedPatterns'] = true;
             $this->excludedPatterns = $value['excluded_patterns'];
             unset($value['excluded_patterns']);
         }
-    
+
         if (array_key_exists('exclude_dotfiles', $value)) {
             $this->_usedProperties['excludeDotfiles'] = true;
             $this->excludeDotfiles = $value['exclude_dotfiles'];
             unset($value['exclude_dotfiles']);
         }
-    
+
         if (array_key_exists('server', $value)) {
             $this->_usedProperties['server'] = true;
             $this->server = $value['server'];
             unset($value['server']);
         }
-    
+
         if (array_key_exists('public_prefix', $value)) {
             $this->_usedProperties['publicPrefix'] = true;
             $this->publicPrefix = $value['public_prefix'];
             unset($value['public_prefix']);
         }
-    
+
         if (array_key_exists('missing_import_mode', $value)) {
             $this->_usedProperties['missingImportMode'] = true;
             $this->missingImportMode = $value['missing_import_mode'];
             unset($value['missing_import_mode']);
         }
-    
+
         if (array_key_exists('extensions', $value)) {
             $this->_usedProperties['extensions'] = true;
             $this->extensions = $value['extensions'];
             unset($value['extensions']);
         }
-    
+
         if (array_key_exists('importmap_path', $value)) {
             $this->_usedProperties['importmapPath'] = true;
             $this->importmapPath = $value['importmap_path'];
             unset($value['importmap_path']);
         }
-    
+
         if (array_key_exists('importmap_polyfill', $value)) {
             $this->_usedProperties['importmapPolyfill'] = true;
             $this->importmapPolyfill = $value['importmap_polyfill'];
             unset($value['importmap_polyfill']);
         }
-    
+
         if (array_key_exists('importmap_script_attributes', $value)) {
             $this->_usedProperties['importmapScriptAttributes'] = true;
             $this->importmapScriptAttributes = $value['importmap_script_attributes'];
             unset($value['importmap_script_attributes']);
         }
-    
+
         if (array_key_exists('vendor_dir', $value)) {
             $this->_usedProperties['vendorDir'] = true;
             $this->vendorDir = $value['vendor_dir'];
             unset($value['vendor_dir']);
         }
-    
+
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-    
+
     public function toArray(): array
     {
         $output = [];
@@ -299,7 +299,7 @@ class AssetMapperConfig
         if (isset($this->_usedProperties['vendorDir'])) {
             $output['vendor_dir'] = $this->vendorDir;
         }
-    
+
         return $output;
     }
 

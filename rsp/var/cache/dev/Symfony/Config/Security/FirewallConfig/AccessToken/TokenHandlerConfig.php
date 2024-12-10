@@ -19,7 +19,7 @@ class TokenHandlerConfig
     private $oidc;
     private $cas;
     private $_usedProperties = [];
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -29,10 +29,10 @@ class TokenHandlerConfig
     {
         $this->_usedProperties['id'] = true;
         $this->id = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @template TValue
      * @param TValue $value
@@ -44,20 +44,20 @@ class TokenHandlerConfig
         if (!\is_array($value)) {
             $this->_usedProperties['oidcUserInfo'] = true;
             $this->oidcUserInfo = $value;
-    
+
             return $this;
         }
-    
+
         if (!$this->oidcUserInfo instanceof \Symfony\Config\Security\FirewallConfig\AccessToken\TokenHandler\OidcUserInfoConfig) {
             $this->_usedProperties['oidcUserInfo'] = true;
             $this->oidcUserInfo = new \Symfony\Config\Security\FirewallConfig\AccessToken\TokenHandler\OidcUserInfoConfig($value);
         } elseif (0 < \func_num_args()) {
             throw new InvalidConfigurationException('The node created by "oidcUserInfo()" has already been initialized. You cannot pass values the second time you call oidcUserInfo().');
         }
-    
+
         return $this->oidcUserInfo;
     }
-    
+
     /**
      * @template TValue
      * @param TValue $value
@@ -69,20 +69,20 @@ class TokenHandlerConfig
         if (!\is_array($value)) {
             $this->_usedProperties['oidc'] = true;
             $this->oidc = $value;
-    
+
             return $this;
         }
-    
+
         if (!$this->oidc instanceof \Symfony\Config\Security\FirewallConfig\AccessToken\TokenHandler\OidcConfig) {
             $this->_usedProperties['oidc'] = true;
             $this->oidc = new \Symfony\Config\Security\FirewallConfig\AccessToken\TokenHandler\OidcConfig($value);
         } elseif (0 < \func_num_args()) {
             throw new InvalidConfigurationException('The node created by "oidc()" has already been initialized. You cannot pass values the second time you call oidc().');
         }
-    
+
         return $this->oidc;
     }
-    
+
     public function cas(array $value = []): \Symfony\Config\Security\FirewallConfig\AccessToken\TokenHandler\CasConfig
     {
         if (null === $this->cas) {
@@ -91,10 +91,10 @@ class TokenHandlerConfig
         } elseif (0 < \func_num_args()) {
             throw new InvalidConfigurationException('The node created by "cas()" has already been initialized. You cannot pass values the second time you call cas().');
         }
-    
+
         return $this->cas;
     }
-    
+
     public function __construct(array $value = [])
     {
         if (array_key_exists('id', $value)) {
@@ -102,30 +102,30 @@ class TokenHandlerConfig
             $this->id = $value['id'];
             unset($value['id']);
         }
-    
+
         if (array_key_exists('oidc_user_info', $value)) {
             $this->_usedProperties['oidcUserInfo'] = true;
             $this->oidcUserInfo = \is_array($value['oidc_user_info']) ? new \Symfony\Config\Security\FirewallConfig\AccessToken\TokenHandler\OidcUserInfoConfig($value['oidc_user_info']) : $value['oidc_user_info'];
             unset($value['oidc_user_info']);
         }
-    
+
         if (array_key_exists('oidc', $value)) {
             $this->_usedProperties['oidc'] = true;
             $this->oidc = \is_array($value['oidc']) ? new \Symfony\Config\Security\FirewallConfig\AccessToken\TokenHandler\OidcConfig($value['oidc']) : $value['oidc'];
             unset($value['oidc']);
         }
-    
+
         if (array_key_exists('cas', $value)) {
             $this->_usedProperties['cas'] = true;
             $this->cas = new \Symfony\Config\Security\FirewallConfig\AccessToken\TokenHandler\CasConfig($value['cas']);
             unset($value['cas']);
         }
-    
+
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-    
+
     public function toArray(): array
     {
         $output = [];
@@ -141,7 +141,7 @@ class TokenHandlerConfig
         if (isset($this->_usedProperties['cas'])) {
             $output['cas'] = $this->cas->toArray();
         }
-    
+
         return $output;
     }
 

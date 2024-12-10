@@ -13,7 +13,7 @@ class RoutingConfig
     private $service;
     private $secret;
     private $_usedProperties = [];
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -23,10 +23,10 @@ class RoutingConfig
     {
         $this->_usedProperties['service'] = true;
         $this->service = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @param ParamConfigurator|mixed $value
      * @return $this
@@ -35,10 +35,10 @@ class RoutingConfig
     {
         $this->_usedProperties['secret'] = true;
         $this->secret = $value;
-    
+
         return $this;
     }
-    
+
     public function __construct(array $value = [])
     {
         if (array_key_exists('service', $value)) {
@@ -46,18 +46,18 @@ class RoutingConfig
             $this->service = $value['service'];
             unset($value['service']);
         }
-    
+
         if (array_key_exists('secret', $value)) {
             $this->_usedProperties['secret'] = true;
             $this->secret = $value['secret'];
             unset($value['secret']);
         }
-    
+
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-    
+
     public function toArray(): array
     {
         $output = [];
@@ -67,7 +67,7 @@ class RoutingConfig
         if (isset($this->_usedProperties['secret'])) {
             $output['secret'] = $this->secret;
         }
-    
+
         return $output;
     }
 

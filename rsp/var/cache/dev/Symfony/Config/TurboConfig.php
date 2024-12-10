@@ -15,7 +15,7 @@ class TurboConfig implements \Symfony\Component\Config\Builder\ConfigBuilderInte
     private $broadcast;
     private $defaultTransport;
     private $_usedProperties = [];
-    
+
     /**
      * @default {"enabled":true,"entity_template_prefixes":{"App\\Entity\\":"broadcast\/"},"doctrine_orm":{"enabled":true}}
     */
@@ -27,10 +27,10 @@ class TurboConfig implements \Symfony\Component\Config\Builder\ConfigBuilderInte
         } elseif (0 < \func_num_args()) {
             throw new InvalidConfigurationException('The node created by "broadcast()" has already been initialized. You cannot pass values the second time you call broadcast().');
         }
-    
+
         return $this->broadcast;
     }
-    
+
     /**
      * @default 'default'
      * @param ParamConfigurator|mixed $value
@@ -40,15 +40,15 @@ class TurboConfig implements \Symfony\Component\Config\Builder\ConfigBuilderInte
     {
         $this->_usedProperties['defaultTransport'] = true;
         $this->defaultTransport = $value;
-    
+
         return $this;
     }
-    
+
     public function getExtensionAlias(): string
     {
         return 'turbo';
     }
-    
+
     public function __construct(array $value = [])
     {
         if (array_key_exists('broadcast', $value)) {
@@ -56,18 +56,18 @@ class TurboConfig implements \Symfony\Component\Config\Builder\ConfigBuilderInte
             $this->broadcast = new \Symfony\Config\Turbo\BroadcastConfig($value['broadcast']);
             unset($value['broadcast']);
         }
-    
+
         if (array_key_exists('default_transport', $value)) {
             $this->_usedProperties['defaultTransport'] = true;
             $this->defaultTransport = $value['default_transport'];
             unset($value['default_transport']);
         }
-    
+
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-    
+
     public function toArray(): array
     {
         $output = [];
@@ -77,7 +77,7 @@ class TurboConfig implements \Symfony\Component\Config\Builder\ConfigBuilderInte
         if (isset($this->_usedProperties['defaultTransport'])) {
             $output['default_transport'] = $this->defaultTransport;
         }
-    
+
         return $output;
     }
 

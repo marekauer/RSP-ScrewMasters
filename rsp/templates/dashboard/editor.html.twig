@@ -2,7 +2,7 @@
 <div>
     <h2>Články ke schválení</h2>
     <ul class="list-group">
-        {% for submission in submissions %}
+        {% for submission in pager.currentPageResults %}
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
                     <span class="me-2">
@@ -24,16 +24,20 @@
                     </div>
                 </div>
                 <div>
+                    <div class="d-inline-flex">
                     {% if submission.submitedFiles is not empty %}
                         {% set filePaths = [] %}
+                        {% set fileDates = [] %}
+                        
                         {% for file in submission.submitedFiles %}
-                        {% set filePaths = filePaths|merge([file.filename]) %}
+                            {% set filePaths = filePaths|merge([file.filename]) %}
+                            {% set fileDates = fileDates|merge([file.createdAt|date("c")]) %}
                         {% endfor %}
-
+                        <a href="{{ path('app_review_show_list', {id: submission.id}) }}" class="btn btn-success">Zobrazit<br/>Recenze</a>
                         <button 
                             type="button" 
                             class="btn btn-link" 
-                            onclick="showFiles('{{ submission.name }}', {{ filePaths|json_encode(constant('JSON_PRETTY_PRINT')) }})"
+                            onclick="showFiles('{{ submission.name }}', {{ filePaths|json_encode(constant('JSON_PRETTY_PRINT')) }}, {{ fileDates|json_encode(constant('JSON_PRETTY_PRINT')) }})"
                             data-bs-toggle="modal" 
                             data-bs-target="#fileModal">
                             Nahrané soubory
@@ -41,10 +45,45 @@
                     {% else %}
                         <small class="text-muted">Žádné soubory</small>
                     {% endif %}
+                        <div class="d-inline-flex">
+                        {{ form_start(rejectSubmissionForm, { attr: { class: 'd-inline' } }) }}
+                            {{ form_row(rejectSubmissionForm.submission_id, { 'value': submission.id }) }}
+                            {{ form_row(rejectSubmissionForm.status) }}
+                            {{ form_row(rejectSubmissionForm.submit) }}
+                        {{ form_end(rejectSubmissionForm) }}
+                        </div>
+                    </div>
                 </div>
             </li>
         {% endfor %}
     </ul>
+    <!-- PAGINACE -->
+    <div class="pagination d-flex justify-content-center mt-3">
+        {% if pager.hasPreviousPage %}
+            <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all | merge({'page': pager.previousPage})) }}" class="btn btn-primary mx-1">
+                Předchozí
+            </a>
+        {% else %}
+            <button class="btn btn-secondary mx-1" disabled>
+                Předchozí
+            </button>
+        {% endif %}
+    
+        <span class="btn btn-outline-primary mx-1">
+            Stránka {{ pager.currentPage }} z {{ pager.nbPages }}
+        </span>
+    
+        {% if pager.hasNextPage %}
+            <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all | merge({'page': pager.nextPage})) }}" class="btn btn-primary mx-1">
+                Další
+            </a>
+        {% else %}
+            <button class="btn btn-secondary mx-1" disabled>
+                Další
+            </button>
+        {% endif %}
+    </div>
+    <!-- END PAGINACE -->
     <h2>Poslat recenzentům</h2>
     {{ form_start(sendSubmissionToReviewersForm, { attr: { class: 'd-inline' } }) }}
         <div class="mb-2">
@@ -83,62 +122,4 @@
             {{ form_row(publicatedSubmissionForm.submit) }}
         </div>
     {{ form_end(publicatedSubmissionForm) }}
-
-    <!-- Modální okno pro nahrané soubory -->
-    <div class="modal fade" id="fileModal" tabindex="-1" aria-labelledby="fileModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="fileModalLabel">Nahrané soubory</h5>
-                </div>
-                <div class="modal-body">
-                    <ul id="fileLinks" class="list-unstyled"></ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">zavřít</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-<script>
-function showFiles(submissionName, filePaths) {
-    document.getElementById('fileModalLabel').innerText = 'Nahrané soubory pro: ' + submissionName;
-
-    const fileLinksElement = document.getElementById('fileLinks');
-    fileLinksElement.innerHTML = '';
-    const basePath = '/uploads/'; 
-
-    filePaths.forEach(function(filePath) {
-        const listItem = document.createElement('li');
-        listItem.classList.add('mb-2');
-
-        const fileLink = document.createElement('a');
-        fileLink.href = basePath + filePath;
-        fileLink.target = '_blank';
-        fileLink.classList.add('btn', 'btn-link'); 
-        fileLink.innerText = filePath.split('_')[0];
-
-        listItem.appendChild(fileLink);
-        fileLinksElement.appendChild(listItem);
-    });
-
-    const modal = new bootstrap.Modal(document.getElementById('fileModal'));
-    modal.show();
-
-    document.getElementById('fileModal').addEventListener('hidden.bs.modal', function () {
-        const backdrop = document.querySelector('.modal-backdrop');
-        if (backdrop) {
-            backdrop.remove();
-        }
-    });
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    var tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-    var tooltipList = [...tooltipTriggerList].map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
-});
-</script>
 {% endblock %}

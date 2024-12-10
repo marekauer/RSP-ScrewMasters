@@ -14,7 +14,7 @@ class CasConfig
     private $prefix;
     private $httpClient;
     private $_usedProperties = [];
-    
+
     /**
      * CAS server validation URL
      * @default null
@@ -25,10 +25,10 @@ class CasConfig
     {
         $this->_usedProperties['validationUrl'] = true;
         $this->validationUrl = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * CAS prefix
      * @default 'cas'
@@ -39,10 +39,10 @@ class CasConfig
     {
         $this->_usedProperties['prefix'] = true;
         $this->prefix = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * HTTP Client service
      * @default null
@@ -53,10 +53,10 @@ class CasConfig
     {
         $this->_usedProperties['httpClient'] = true;
         $this->httpClient = $value;
-    
+
         return $this;
     }
-    
+
     public function __construct(array $value = [])
     {
         if (array_key_exists('validation_url', $value)) {
@@ -64,24 +64,24 @@ class CasConfig
             $this->validationUrl = $value['validation_url'];
             unset($value['validation_url']);
         }
-    
+
         if (array_key_exists('prefix', $value)) {
             $this->_usedProperties['prefix'] = true;
             $this->prefix = $value['prefix'];
             unset($value['prefix']);
         }
-    
+
         if (array_key_exists('http_client', $value)) {
             $this->_usedProperties['httpClient'] = true;
             $this->httpClient = $value['http_client'];
             unset($value['http_client']);
         }
-    
+
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-    
+
     public function toArray(): array
     {
         $output = [];
@@ -94,7 +94,7 @@ class CasConfig
         if (isset($this->_usedProperties['httpClient'])) {
             $output['http_client'] = $this->httpClient;
         }
-    
+
         return $output;
     }
 

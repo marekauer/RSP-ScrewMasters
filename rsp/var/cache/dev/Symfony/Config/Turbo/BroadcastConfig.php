@@ -16,7 +16,7 @@ class BroadcastConfig
     private $entityTemplatePrefixes;
     private $doctrineOrm;
     private $_usedProperties = [];
-    
+
     /**
      * @default true
      * @param ParamConfigurator|bool $value
@@ -26,10 +26,10 @@ class BroadcastConfig
     {
         $this->_usedProperties['enabled'] = true;
         $this->enabled = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @param ParamConfigurator|list<ParamConfigurator|mixed> $value
      *
@@ -39,10 +39,10 @@ class BroadcastConfig
     {
         $this->_usedProperties['entityTemplatePrefixes'] = true;
         $this->entityTemplatePrefixes = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * Enable the Doctrine ORM integration
      * @default {"enabled":true}
@@ -55,10 +55,10 @@ class BroadcastConfig
         } elseif (0 < \func_num_args()) {
             throw new InvalidConfigurationException('The node created by "doctrineOrm()" has already been initialized. You cannot pass values the second time you call doctrineOrm().');
         }
-    
+
         return $this->doctrineOrm;
     }
-    
+
     public function __construct(array $value = [])
     {
         if (array_key_exists('enabled', $value)) {
@@ -66,24 +66,24 @@ class BroadcastConfig
             $this->enabled = $value['enabled'];
             unset($value['enabled']);
         }
-    
+
         if (array_key_exists('entity_template_prefixes', $value)) {
             $this->_usedProperties['entityTemplatePrefixes'] = true;
             $this->entityTemplatePrefixes = $value['entity_template_prefixes'];
             unset($value['entity_template_prefixes']);
         }
-    
+
         if (array_key_exists('doctrine_orm', $value)) {
             $this->_usedProperties['doctrineOrm'] = true;
             $this->doctrineOrm = new \Symfony\Config\Turbo\Broadcast\DoctrineOrmConfig($value['doctrine_orm']);
             unset($value['doctrine_orm']);
         }
-    
+
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-    
+
     public function toArray(): array
     {
         $output = [];
@@ -96,7 +96,7 @@ class BroadcastConfig
         if (isset($this->_usedProperties['doctrineOrm'])) {
             $output['doctrine_orm'] = $this->doctrineOrm->toArray();
         }
-    
+
         return $output;
     }
 

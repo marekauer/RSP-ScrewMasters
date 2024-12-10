@@ -14,7 +14,7 @@ class MakerConfig implements \Symfony\Component\Config\Builder\ConfigBuilderInte
     private $generateFinalClasses;
     private $generateFinalEntities;
     private $_usedProperties = [];
-    
+
     /**
      * @default 'App'
      * @param ParamConfigurator|mixed $value
@@ -24,10 +24,10 @@ class MakerConfig implements \Symfony\Component\Config\Builder\ConfigBuilderInte
     {
         $this->_usedProperties['rootNamespace'] = true;
         $this->rootNamespace = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default true
      * @param ParamConfigurator|bool $value
@@ -37,10 +37,10 @@ class MakerConfig implements \Symfony\Component\Config\Builder\ConfigBuilderInte
     {
         $this->_usedProperties['generateFinalClasses'] = true;
         $this->generateFinalClasses = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default false
      * @param ParamConfigurator|bool $value
@@ -50,15 +50,15 @@ class MakerConfig implements \Symfony\Component\Config\Builder\ConfigBuilderInte
     {
         $this->_usedProperties['generateFinalEntities'] = true;
         $this->generateFinalEntities = $value;
-    
+
         return $this;
     }
-    
+
     public function getExtensionAlias(): string
     {
         return 'maker';
     }
-    
+
     public function __construct(array $value = [])
     {
         if (array_key_exists('root_namespace', $value)) {
@@ -66,24 +66,24 @@ class MakerConfig implements \Symfony\Component\Config\Builder\ConfigBuilderInte
             $this->rootNamespace = $value['root_namespace'];
             unset($value['root_namespace']);
         }
-    
+
         if (array_key_exists('generate_final_classes', $value)) {
             $this->_usedProperties['generateFinalClasses'] = true;
             $this->generateFinalClasses = $value['generate_final_classes'];
             unset($value['generate_final_classes']);
         }
-    
+
         if (array_key_exists('generate_final_entities', $value)) {
             $this->_usedProperties['generateFinalEntities'] = true;
             $this->generateFinalEntities = $value['generate_final_entities'];
             unset($value['generate_final_entities']);
         }
-    
+
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-    
+
     public function toArray(): array
     {
         $output = [];
@@ -96,7 +96,7 @@ class MakerConfig implements \Symfony\Component\Config\Builder\ConfigBuilderInte
         if (isset($this->_usedProperties['generateFinalEntities'])) {
             $output['generate_final_entities'] = $this->generateFinalEntities;
         }
-    
+
         return $output;
     }
 

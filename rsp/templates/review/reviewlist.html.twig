@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Seznam recenzí{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1 class="mb-4">Seznam recenzí</h1>
+
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Časovost</th>
+                <th scope="col">Zajímavost</th>
+                <th scope="col">Užitečnost</th>
+                <th scope="col">Originalita</th>
+                <th scope="col">Odborná úroveň</th>
+                <th scope="col">Jazyková úroveň</th>
+                <th scope="col">Stylová úroveň</th>
+                <th scope="col">Hodnocení</th>
+                <th scope="col">Recenzent</th>
+                <th scope="col">Příspěvek</th>
+                <th scope="col">Vytvořeno</th>
+                <th scope="col">Akce</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for review in reviews %}
+                <tr>
+                    <td>{{ review.id }}</td>
+                    <td>{{ render_stars(review.timeliness) }}</td>
+                    <td>{{ render_stars(review.interest) }}</td>
+                    <td>{{ render_stars(review.usefulness) }}</td>
+                    <td>{{ render_stars(review.originality) }}</td>
+                    <td>{{ render_stars(review.professionalLevel) }}</td>
+                    <td>{{ render_stars(review.languageLevel) }}</td>
+                    <td>{{ render_stars(review.stylisticLevel) }}</td>
+                    <td>{{ render_stars(review.evaluation) }}</td>
+                    <td>{{ review.reviewer.email }}</td>
+                    <td>{{ review.submission.name }}</td>
+                    <td>{{ review.createdAt|date('Y-m-d H:i') }}</td>
+                    <td>
+                        <a href="{{ path('app_review_detail', { id: review.id }) }}" 
+                           class="btn btn-primary btn-sm">
+                            Text
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="13" class="text-center">Nebyly nalezeny recenze.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{path('app_dashboard')}}" class="btn btn-secondary mt-2">Zpět do dashboardu</a>
+</div>
+{% endblock %}

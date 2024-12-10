@@ -19,11 +19,13 @@ class PublicatedSubmissionRepository extends ServiceEntityRepository
     public function findLatest()
     {
         return $this->createQueryBuilder('p')
+            ->join('p.publication', 'pp')
+            ->join('pp.publicationCategory', 'ppc')
             ->join('p.submission', 's')         
             ->join('s.author', 'a')             
             ->join('a.user', 'u')               
             ->leftJoin('s.submitedFiles', 'sf', 'WITH', 'sf.createdAt = (SELECT MAX(sf2.createdAt) FROM App\Entity\SubmitedFile sf2 WHERE sf2.submission = s)') // Subquery to get the latest SubmitedFile
-            ->select('p', 's.name', 'u.email', 'p.publicatedAt', 'sf.filename') 
+            ->select('p', 's.name', 'u.email', 'p.publicatedAt', 'sf.filename', 'pp.name as publicationName', 'ppc.name as publicationCategoryName') 
             ->orderBy('p.publicatedAt', 'DESC')     
             ->setMaxResults(1)                   
             ->getQuery()
@@ -52,10 +54,7 @@ class PublicatedSubmissionRepository extends ServiceEntityRepository
         ->select('p', 's.name', 'u.email', 'p.publicatedAt', 'sf.filename') 
         ->where('p.id != :latestId')
         ->setParameter('latestId', $latestIdQuery) // Exclude the latest publication ID
-        ->orderBy('p.publicatedAt', 'DESC')
-        ->getQuery()
-        ->getResult();
-    
+        ->orderBy('p.publicatedAt', 'DESC');
     }
 
 }

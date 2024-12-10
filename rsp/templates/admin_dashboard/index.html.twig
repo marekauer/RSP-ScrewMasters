@@ -3,18 +3,107 @@
 {% block title %}Hello AdminDashboardController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="container my-5">
+    <h1 class="text-center mb-5">Admin Konzole</h1>
+    <div class="row">
+        <!-- Karta pro autory -->
+        <div class="col-md-6 mb-4">
+            <div class="card border-primary">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title mb-0">Editace Autorů</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Spravujte seznam autorů, upravujte jejich údaje nebo je odstraňujte.</p>
+                    <a href="#authors-section" class="btn btn-primary">Přejít na sekci</a>
+                </div>
+            </div>
+        </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        <!-- Karta pro články -->
+        <div class="col-md-6 mb-4">
+            <div class="card border-success">
+                <div class="card-header bg-success text-white">
+                    <h3 class="card-title mb-0">Editace Článků</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Spravujte články, upravujte jejich obsah nebo měňte jejich stav.</p>
+                    <a href="#articles-section" class="btn btn-success">Přejít na sekci</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/adamp/OneDrive/Plocha/rsp/src/Controller/AdminDashboardController.php</code></li>
-        <li>Your template at <code>C:/Users/adamp/OneDrive/Plocha/rsp/templates/admin_dashboard/index.html.twig</code></li>
-    </ul>
+    <!-- Sekce pro autory -->
+    <section id="authors-section" class="mt-5">
+        <h2 class="mb-4">Seznam Autorů</h2>
+        <table class="table table-hover table-bordered">
+            <thead class="table-primary">
+                <tr>
+                    <th>ID</th>
+                    <th>Jméno</th>
+                    <th>Email</th>
+                    <th>Akce</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Jan Novák</td>
+                    <td>jan.novak@email.cz</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary">Upravit</button>
+                        <button class="btn btn-sm btn-outline-danger">Smazat</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Marie Svobodová</td>
+                    <td>marie.svobodova@email.cz</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary">Upravit</button>
+                        <button class="btn btn-sm btn-outline-danger">Smazat</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Sekce pro články -->
+    <section id="articles-section" class="mt-5">
+        <h2 class="mb-4">Seznam Článků</h2>
+        <table class="table table-hover table-bordered">
+            <thead class="table-success">
+                <tr>
+                    <th>ID</th>
+                    <th>Název</th>
+                    <th>Autor</th>
+                    <th>Status</th>
+                    <th>Akce</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>101</td>
+                    <td>Jak na Symfony</td>
+                    <td>Jan Novák</td>
+                    <td>Schváleno</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary">Upravit</button>
+                        <button class="btn btn-sm btn-outline-danger">Smazat</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>102</td>
+                    <td>Nové trendy v AI</td>
+                    <td>Marie Svobodová</td>
+                    <td>Čeká na schválení</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary">Upravit</button>
+                        <button class="btn btn-sm btn-outline-danger">Smazat</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
 </div>
 {% endblock %}

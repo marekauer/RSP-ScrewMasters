@@ -18,7 +18,7 @@ class HttpBasicLdapConfig
     private $searchDn;
     private $searchPassword;
     private $_usedProperties = [];
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -28,10 +28,10 @@ class HttpBasicLdapConfig
     {
         $this->_usedProperties['provider'] = true;
         $this->provider = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default 'Secured Area'
      * @param ParamConfigurator|mixed $value
@@ -41,10 +41,10 @@ class HttpBasicLdapConfig
     {
         $this->_usedProperties['realm'] = true;
         $this->realm = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default 'ldap'
      * @param ParamConfigurator|mixed $value
@@ -54,10 +54,10 @@ class HttpBasicLdapConfig
     {
         $this->_usedProperties['service'] = true;
         $this->service = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default '{user_identifier}'
      * @param ParamConfigurator|mixed $value
@@ -67,10 +67,10 @@ class HttpBasicLdapConfig
     {
         $this->_usedProperties['dnString'] = true;
         $this->dnString = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -80,10 +80,10 @@ class HttpBasicLdapConfig
     {
         $this->_usedProperties['queryString'] = true;
         $this->queryString = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @param ParamConfigurator|mixed $value
      * @return $this
@@ -92,10 +92,10 @@ class HttpBasicLdapConfig
     {
         $this->_usedProperties['searchDn'] = true;
         $this->searchDn = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @param ParamConfigurator|mixed $value
      * @return $this
@@ -104,10 +104,10 @@ class HttpBasicLdapConfig
     {
         $this->_usedProperties['searchPassword'] = true;
         $this->searchPassword = $value;
-    
+
         return $this;
     }
-    
+
     public function __construct(array $value = [])
     {
         if (array_key_exists('provider', $value)) {
@@ -115,48 +115,48 @@ class HttpBasicLdapConfig
             $this->provider = $value['provider'];
             unset($value['provider']);
         }
-    
+
         if (array_key_exists('realm', $value)) {
             $this->_usedProperties['realm'] = true;
             $this->realm = $value['realm'];
             unset($value['realm']);
         }
-    
+
         if (array_key_exists('service', $value)) {
             $this->_usedProperties['service'] = true;
             $this->service = $value['service'];
             unset($value['service']);
         }
-    
+
         if (array_key_exists('dn_string', $value)) {
             $this->_usedProperties['dnString'] = true;
             $this->dnString = $value['dn_string'];
             unset($value['dn_string']);
         }
-    
+
         if (array_key_exists('query_string', $value)) {
             $this->_usedProperties['queryString'] = true;
             $this->queryString = $value['query_string'];
             unset($value['query_string']);
         }
-    
+
         if (array_key_exists('search_dn', $value)) {
             $this->_usedProperties['searchDn'] = true;
             $this->searchDn = $value['search_dn'];
             unset($value['search_dn']);
         }
-    
+
         if (array_key_exists('search_password', $value)) {
             $this->_usedProperties['searchPassword'] = true;
             $this->searchPassword = $value['search_password'];
             unset($value['search_password']);
         }
-    
+
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-    
+
     public function toArray(): array
     {
         $output = [];
@@ -181,7 +181,7 @@ class HttpBasicLdapConfig
         if (isset($this->_usedProperties['searchPassword'])) {
             $output['search_password'] = $this->searchPassword;
         }
-    
+
         return $output;
     }
 

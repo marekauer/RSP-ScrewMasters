@@ -27,7 +27,7 @@ class SecurityConfig implements \Symfony\Component\Config\Builder\ConfigBuilderI
     private $accessControl;
     private $roleHierarchy;
     private $_usedProperties = [];
-    
+
     /**
      * @example /foo/error403
      * @default null
@@ -38,10 +38,10 @@ class SecurityConfig implements \Symfony\Component\Config\Builder\ConfigBuilderI
     {
         $this->_usedProperties['accessDeniedUrl'] = true;
         $this->accessDeniedUrl = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default 'migrate'
      * @param ParamConfigurator|'none'|'migrate'|'invalidate' $value
@@ -51,10 +51,10 @@ class SecurityConfig implements \Symfony\Component\Config\Builder\ConfigBuilderI
     {
         $this->_usedProperties['sessionFixationStrategy'] = true;
         $this->sessionFixationStrategy = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default true
      * @param ParamConfigurator|bool $value
@@ -64,10 +64,10 @@ class SecurityConfig implements \Symfony\Component\Config\Builder\ConfigBuilderI
     {
         $this->_usedProperties['hideUserNotFound'] = true;
         $this->hideUserNotFound = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default true
      * @param ParamConfigurator|bool $value
@@ -77,10 +77,10 @@ class SecurityConfig implements \Symfony\Component\Config\Builder\ConfigBuilderI
     {
         $this->_usedProperties['eraseCredentials'] = true;
         $this->eraseCredentials = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default {"allow_if_all_abstain":false,"allow_if_equal_granted_denied":true}
     */
@@ -92,10 +92,10 @@ class SecurityConfig implements \Symfony\Component\Config\Builder\ConfigBuilderI
         } elseif (0 < \func_num_args()) {
             throw new InvalidConfigurationException('The node created by "accessDecisionManager()" has already been initialized. You cannot pass values the second time you call accessDecisionManager().');
         }
-    
+
         return $this->accessDecisionManager;
     }
-    
+
     /**
      * @template TValue
      * @param TValue $value
@@ -109,20 +109,20 @@ class SecurityConfig implements \Symfony\Component\Config\Builder\ConfigBuilderI
         if (!\is_array($value)) {
             $this->_usedProperties['passwordHashers'] = true;
             $this->passwordHashers[$class] = $value;
-    
+
             return $this;
         }
-    
+
         if (!isset($this->passwordHashers[$class]) || !$this->passwordHashers[$class] instanceof \Symfony\Config\Security\PasswordHasherConfig) {
             $this->_usedProperties['passwordHashers'] = true;
             $this->passwordHashers[$class] = new \Symfony\Config\Security\PasswordHasherConfig($value);
         } elseif (1 < \func_num_args()) {
             throw new InvalidConfigurationException('The node created by "passwordHasher()" has already been initialized. You cannot pass values the second time you call passwordHasher().');
         }
-    
+
         return $this->passwordHashers[$class];
     }
-    
+
     /**
      * @example {"memory":{"users":{"foo":{"password":"foo","roles":"ROLE_USER"},"bar":{"password":"bar","roles":"[ROLE_USER, ROLE_ADMIN]"}}}}
      * @example {"entity":{"class":"SecurityBundle:User","property":"username"}}
@@ -135,10 +135,10 @@ class SecurityConfig implements \Symfony\Component\Config\Builder\ConfigBuilderI
         } elseif (1 < \func_num_args()) {
             throw new InvalidConfigurationException('The node created by "provider()" has already been initialized. You cannot pass values the second time you call provider().');
         }
-    
+
         return $this->providers[$name];
     }
-    
+
     public function firewall(string $name, array $value = []): \Symfony\Config\Security\FirewallConfig
     {
         if (!isset($this->firewalls[$name])) {
@@ -147,17 +147,17 @@ class SecurityConfig implements \Symfony\Component\Config\Builder\ConfigBuilderI
         } elseif (1 < \func_num_args()) {
             throw new InvalidConfigurationException('The node created by "firewall()" has already been initialized. You cannot pass values the second time you call firewall().');
         }
-    
+
         return $this->firewalls[$name];
     }
-    
+
     public function accessControl(array $value = []): \Symfony\Config\Security\AccessControlConfig
     {
         $this->_usedProperties['accessControl'] = true;
-    
+
         return $this->accessControl[] = new \Symfony\Config\Security\AccessControlConfig($value);
     }
-    
+
     /**
      * @return $this
      */
@@ -165,15 +165,15 @@ class SecurityConfig implements \Symfony\Component\Config\Builder\ConfigBuilderI
     {
         $this->_usedProperties['roleHierarchy'] = true;
         $this->roleHierarchy[$id] = $value;
-    
+
         return $this;
     }
-    
+
     public function getExtensionAlias(): string
     {
         return 'security';
     }
-    
+
     public function __construct(array $value = [])
     {
         if (array_key_exists('access_denied_url', $value)) {
@@ -181,66 +181,66 @@ class SecurityConfig implements \Symfony\Component\Config\Builder\ConfigBuilderI
             $this->accessDeniedUrl = $value['access_denied_url'];
             unset($value['access_denied_url']);
         }
-    
+
         if (array_key_exists('session_fixation_strategy', $value)) {
             $this->_usedProperties['sessionFixationStrategy'] = true;
             $this->sessionFixationStrategy = $value['session_fixation_strategy'];
             unset($value['session_fixation_strategy']);
         }
-    
+
         if (array_key_exists('hide_user_not_found', $value)) {
             $this->_usedProperties['hideUserNotFound'] = true;
             $this->hideUserNotFound = $value['hide_user_not_found'];
             unset($value['hide_user_not_found']);
         }
-    
+
         if (array_key_exists('erase_credentials', $value)) {
             $this->_usedProperties['eraseCredentials'] = true;
             $this->eraseCredentials = $value['erase_credentials'];
             unset($value['erase_credentials']);
         }
-    
+
         if (array_key_exists('access_decision_manager', $value)) {
             $this->_usedProperties['accessDecisionManager'] = true;
             $this->accessDecisionManager = new \Symfony\Config\Security\AccessDecisionManagerConfig($value['access_decision_manager']);
             unset($value['access_decision_manager']);
         }
-    
+
         if (array_key_exists('password_hashers', $value)) {
             $this->_usedProperties['passwordHashers'] = true;
             $this->passwordHashers = array_map(fn ($v) => \is_array($v) ? new \Symfony\Config\Security\PasswordHasherConfig($v) : $v, $value['password_hashers']);
             unset($value['password_hashers']);
         }
-    
+
         if (array_key_exists('providers', $value)) {
             $this->_usedProperties['providers'] = true;
             $this->providers = array_map(fn ($v) => new \Symfony\Config\Security\ProviderConfig($v), $value['providers']);
             unset($value['providers']);
         }
-    
+
         if (array_key_exists('firewalls', $value)) {
             $this->_usedProperties['firewalls'] = true;
             $this->firewalls = array_map(fn ($v) => new \Symfony\Config\Security\FirewallConfig($v), $value['firewalls']);
             unset($value['firewalls']);
         }
-    
+
         if (array_key_exists('access_control', $value)) {
             $this->_usedProperties['accessControl'] = true;
             $this->accessControl = array_map(fn ($v) => new \Symfony\Config\Security\AccessControlConfig($v), $value['access_control']);
             unset($value['access_control']);
         }
-    
+
         if (array_key_exists('role_hierarchy', $value)) {
             $this->_usedProperties['roleHierarchy'] = true;
             $this->roleHierarchy = $value['role_hierarchy'];
             unset($value['role_hierarchy']);
         }
-    
+
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-    
+
     public function toArray(): array
     {
         $output = [];
@@ -274,7 +274,7 @@ class SecurityConfig implements \Symfony\Component\Config\Builder\ConfigBuilderI
         if (isset($this->_usedProperties['roleHierarchy'])) {
             $output['role_hierarchy'] = $this->roleHierarchy;
         }
-    
+
         return $output;
     }
 

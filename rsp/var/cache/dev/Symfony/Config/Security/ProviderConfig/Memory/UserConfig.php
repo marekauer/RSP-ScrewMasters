@@ -13,7 +13,7 @@ class UserConfig
     private $password;
     private $roles;
     private $_usedProperties = [];
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -23,10 +23,10 @@ class UserConfig
     {
         $this->_usedProperties['password'] = true;
         $this->password = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @param ParamConfigurator|list<ParamConfigurator|mixed>|string $value
      *
@@ -36,10 +36,10 @@ class UserConfig
     {
         $this->_usedProperties['roles'] = true;
         $this->roles = $value;
-    
+
         return $this;
     }
-    
+
     public function __construct(array $value = [])
     {
         if (array_key_exists('password', $value)) {
@@ -47,18 +47,18 @@ class UserConfig
             $this->password = $value['password'];
             unset($value['password']);
         }
-    
+
         if (array_key_exists('roles', $value)) {
             $this->_usedProperties['roles'] = true;
             $this->roles = $value['roles'];
             unset($value['roles']);
         }
-    
+
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-    
+
     public function toArray(): array
     {
         $output = [];
@@ -68,7 +68,7 @@ class UserConfig
         if (isset($this->_usedProperties['roles'])) {
             $output['roles'] = $this->roles;
         }
-    
+
         return $output;
     }
 

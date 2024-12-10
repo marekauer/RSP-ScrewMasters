@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="wrapper">
+    <!-- Button to Show/Hide Team Creation Form -->
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <button id="addTeamButton" style="padding: 5px 10px; background-color: #007BFF; color: white; border: none; border-radius: 3px; cursor: pointer;">
+            Přidat tým
+        </button>
+    </div>
+
+    <!-- Team Creation Form -->
+    <div id="addTeamForm" style="display: none; margin-top: 20px;">
+        <form action="{{ path('app_autorteams_create') }}" method="post" class="p-3 border rounded">
+            <!-- Team Name -->
+            <div class="mb-3">
+                <label for="teamName" class="form-label">Název týmu:</label>
+                <input type="text" id="teamName" name="teamName" class="form-control" required>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-success">Uložit</button>
+        </form>
+    </div>
+
+    <h2 style="margin-top: 5px">Autorské týmy</h2>
+    <div class="accordion" id="teamAccordion">
+        {% for team in teams %}
+            <div class="accordion-item" style="padding-bottom: 10px">
+                <!-- Team Header -->
+                <h2 class="accordion-header" id="heading{{ loop.index }}">
+                    <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapse{{ loop.index }}"
+                        aria-expanded="false"
+                        aria-controls="collapse{{ loop.index }}">
+                        {{ team.name }}
+                    </button>
+                </h2>
+
+                <!-- Team Body -->
+                <div
+                    id="collapse{{ loop.index }}"
+                    class="accordion-collapse collapse"
+                    aria-labelledby="heading{{ loop.index }}"
+                    data-bs-parent="#teamAccordion">
+                    <div class="accordion-body">
+                        <h5>Autoři:</h5>
+                        {% set teamAuthors = authors|filter(author => author.team.id == team.id) %}
+                        {% if teamAuthors|length > 0 %}
+                            <ul>
+                                {% for author in teamAuthors %}
+                                    {% set user = users|filter(u => u.id == author.user.id)|first %}
+                                    <li>{{ user.email }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>Žádní autoři v tomto týmu.</p>
+                        {% endif %}
+
+
+                        <!-- Control Buttons -->
+                        <div class="mt-3">
+                            <!-- Edit Button with Inline Form -->
+                            <form action="{{ path('app_autorteams_edit', { id: team.id }) }}" method="post" class="d-inline">
+                                <input type="text" name="teamName" value="{{ team.name }}" class="form-control d-inline w-auto" required>
+                                <button type="submit" class="btn btn-primary">Upravit název</button>
+                            </form>
+
+                            <!-- Delete Button with Confirmation -->
+                            <form action="{{ path('app_autorteams_delete', { id: team.id }) }}" method="post" class="d-inline" onsubmit="return confirmDelete('{{ team.name }}')">
+                                <button type="submit" class="btn btn-danger">Smazat</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingEmpty">
+                    <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseEmpty"
+                        aria-expanded="false"
+                        aria-controls="collapseEmpty">
+                        Žádné týmy
+                    </button>
+                </h2>
+                <div id="collapseEmpty" class="accordion-collapse collapse" aria-labelledby="headingEmpty" data-bs-parent="#teamAccordion">
+                    <div class="accordion-body">
+                        <p>V databázi nebyly nalezeny žádné týmy.</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    // Toggle the team creation form
+    document.getElementById('addTeamButton').addEventListener('click', function () {
+        const form = document.getElementById('addTeamForm');
+        form.style.display = form.style.display === 'none' || form.style.display === '' ? 'block' : 'none';
+    });
+
+    // Confirmation popup before deleting a team
+    function confirmDelete(teamName) {
+        return confirm(`Opravdu chcete smazat tým "${teamName}"?`);
+    }
+</script>
+{% endblock %}

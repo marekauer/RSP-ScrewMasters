@@ -26,7 +26,7 @@
                     </li>
                     {% if is_granted('ROLE_REVIEWER') %}
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">
+                            <a class="nav-link text-dark" href="{{ path('app_dashboard_reviewer') }}">
                                 <i class="bi bi-bi-chat-left-text"></i>
                                 Napsat recenzi
                             </a>
@@ -40,6 +40,14 @@
                             </a>
                         </li>
                     {% endif %}
+                    {% if is_granted('ROLE_EDITORCHIEF') %}
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="{{ path('app_autorteams') }}">
+                                <i class="bi bi-database"></i>
+                                Autorské týmy
+                            </a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>
@@ -47,26 +55,35 @@
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <!-- Flashes -->
             {% for label, messages in app.flashes %}
+                {% if label ==  "error" %}
+                <div class="alert alert-danger">
+                {% else %}
                 <div class="alert alert-{{ label }}">
+                {% endif %}
                     {% for message in messages %}
                         <p>{{ message }}</p>
                     {% endfor %}
                 </div>
             {% endfor %}
             {% if is_granted('ROLE_ADMINISTRATOR') %}
-                Vítejte ADMINE, <a href="#">Přejít do administrace</a>
+                Vítejte ADMINE, <a href="{{path('app_admin_dashboard')}}">Přejít do administrace</a>
             {% endif %}
             {% if is_granted('ROLE_REVIEWER') %}
-                Vítejte recenzente, <a href="#">Napsat recenzi</a>
+                Vítejte recenzente, <a href="{{ path('app_dashboard_reviewer') }}">Požadavky na recenze od redaktorů</a>
             {% endif %}
             {% if is_granted('ROLE_AUTHOR') %}
                 {% include 'dashboard/author.html.twig' with {'form': createsubmissionform, 'submissions': submissions} %}
             {% endif %}
             {% if is_granted('ROLE_EDITOR') %}
-                {% include 'dashboard/editor.html.twig' with {'submissions': submissions} %}
+                {% include 'dashboard/editor.html.twig' with {
+                    'pager': pager,
+                    'publicatedSubmissionForm': publicatedSubmissionForm,
+                    'sendSubmissionToReviewersForm': sendSubmissionToReviewersForm,
+                    'rejectSubmissionForm': rejectSubmissionForm
+                } %}
             {% endif %}
             {% if is_granted('ROLE_EDITORCHIEF') %}
-                {% include 'dashboard/editorchief.html.twig' with {'submissions': submissions} %}
+                {% include 'dashboard/editorchief.html.twig' with {'createPublicationForm': createPublicationForm, 'pager': pager} %}
             {% endif %}
         </main>
     </div>

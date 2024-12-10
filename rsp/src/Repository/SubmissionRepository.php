@@ -40,6 +40,14 @@ class SubmissionRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findAllForPublicationQueryBuilder()
+    {
+        return $this->createQueryBuilder('s')
+            ->innerJoin('s.submitedFiles', 'sf')
+            ->where('s.status = 0 or s.status = 1')
+            ->orderBy('s.createdAt', 'ASC');
+    }
+
     public function findAllEditorSubmited(): array
     {
         return $this->createQueryBuilder('s')

@@ -14,7 +14,7 @@ class ResultCacheDriverConfig
     private $id;
     private $pool;
     private $_usedProperties = [];
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -24,10 +24,10 @@ class ResultCacheDriverConfig
     {
         $this->_usedProperties['type'] = true;
         $this->type = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -37,10 +37,10 @@ class ResultCacheDriverConfig
     {
         $this->_usedProperties['id'] = true;
         $this->id = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -50,10 +50,10 @@ class ResultCacheDriverConfig
     {
         $this->_usedProperties['pool'] = true;
         $this->pool = $value;
-    
+
         return $this;
     }
-    
+
     public function __construct(array $value = [])
     {
         if (array_key_exists('type', $value)) {
@@ -61,24 +61,24 @@ class ResultCacheDriverConfig
             $this->type = $value['type'];
             unset($value['type']);
         }
-    
+
         if (array_key_exists('id', $value)) {
             $this->_usedProperties['id'] = true;
             $this->id = $value['id'];
             unset($value['id']);
         }
-    
+
         if (array_key_exists('pool', $value)) {
             $this->_usedProperties['pool'] = true;
             $this->pool = $value['pool'];
             unset($value['pool']);
         }
-    
+
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-    
+
     public function toArray(): array
     {
         $output = [];
@@ -91,7 +91,7 @@ class ResultCacheDriverConfig
         if (isset($this->_usedProperties['pool'])) {
             $output['pool'] = $this->pool;
         }
-    
+
         return $output;
     }
 
