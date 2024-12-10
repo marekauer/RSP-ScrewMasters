@@ -1,0 +1,1 @@
+ Grafika (například logo týmu, BMC, ERD apod.)

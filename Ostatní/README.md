@@ -1,0 +1,1 @@
+▪ Ostatní (např. kód nebo interní produktově-technická dokumentace). Tato složka musí existovat.
